@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "module": "commonjs",
+    "lib": ["es2019"],
+    "target": "es2017",
+    "allowJs": false,
+    "declaration": true,
+    "baseUrl": "./src",
+    "experimentalDecorators": true,
+    "strict": false,
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "__test__"]
+}

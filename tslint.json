@@ -1,0 +1,43 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "no-console": false,
+    "no-angle-bracket-type-assertion": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-string-literal": false,
+    "eofline": true,
+    "only-arrow-functions": false,
+    "forin": false,
+    "interface-name": false,
+    "no-big-function": false,
+    "cognitive-complexity": false,
+    "member-ordering": [false, { "order": "fields-first" }],
+    "no-shadowed-variable": false,
+    "no-unused-expression": false,
+    "no-var-keyword": true,
+    "no-var-requires": true,
+    "object-shorthand": ["error", "always", { "avoidQuotes": true }],
+    "no-reference": false,
+    "quotemark": [true, "single"],
+    "variable-name": [true, "ban-keywords", "allow-leading-underscore"],
+    "trailing-comma": [ true,
+      {
+        "multiline": {
+          "objects": "always",
+          "arrays": "always",
+          "functions": "always",
+          "typeLiterals": "ignore",
+          "imports": "ignore",
+          "exports": "ignore"
+        },
+        "singleline": "never",
+        "esSpecCompliant": true
+      }
+    ],
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
+  },
+  "linterOptions": {
+    "exclude": ["**/*.test.ts", "**/*.spec.ts"]
+  }
+}
