@@ -4,7 +4,7 @@
 - nested
 - script_fields
 - bool
-- aggregations
+- aggregations (in progress...)
 
 **Generating hints based on types :**
 ![type](./img/type.png)
