@@ -82,43 +82,35 @@ describe('BoolBulder tests', () => {
   });
 
   test('Create extend schema', async () => {
+
+
+    interface IQQ extends BoolSchema {
+      notExistsFilter: {
+        params: {
+          someParams: string;
+        };
+        field: string;
+      };
+    }
+
     const b = new Bool<IQQ>()
       .add('must', 'range', {
         field: 'price',
         params: {
           gte: 0,
-          lte: Number.MAX_VALUE,
+          lte: Number.MAX_VALUE
         },
         opts: {
-          boost: 120,
-        },
+          boost: 120
+        }
       })
-      .add('must', 'term', {
-        params: {
-          value: '00001851',
-        },
-        field: 'articul.keyword',
-        opts: {
-          boost: 300,
-        },
-      })
-      .add('filter', 'exists', {
-        params: {
-          fieldName: 'media.photo',
-        },
-      })
-      .add('filter', 'match_all', {
-        params: {},
-        opts: {
-          boost: 0,
-        },
-      })
-      .add('should', 'test', {
+      .add('should', 'notExistsFilter', {
         field: 'test',
         params: {
-          qq: 10,
-        },
+          someParams: 'some data'
+        }
       });
+
 
     expect(b.build()).toEqual({
       bool: {
@@ -168,11 +160,3 @@ describe('BoolBulder tests', () => {
     });
   });
 });
-interface IQQ extends BoolSchema {
-  test: {
-    params: {
-      qq: number;
-    };
-    field: string;
-  };
-}
