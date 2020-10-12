@@ -151,12 +151,24 @@ describe('BoolBulder tests', () => {
           {
             test: {
               test: {
-                qq: 10,
-              },
-            },
+                qq: 10
+              }
+            }
           },
         ],
       },
     });
+  });
+
+
+  test('qq', async () => {
+    const b = new Bool()
+      .add('filter', 'range', {
+        params: {
+          gt: 0
+        }
+      });
+
+    console.log(JSON.stringify(b.build(), null, 2));
   });
 });

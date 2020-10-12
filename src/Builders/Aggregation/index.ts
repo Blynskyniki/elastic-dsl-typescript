@@ -8,6 +8,7 @@ export class Aggregation<SCHEMA extends AggregationSchema> extends AbstractBulde
     this._data[name] = {
       [aggType]: { ...(d.params as object), ...((d.opts as object) || {}) },
     };
+    return this;
   }
 
   public addCustom(name: string, cutsomAgg: object) {
@@ -15,15 +16,10 @@ export class Aggregation<SCHEMA extends AggregationSchema> extends AbstractBulde
   }
 
   public build(): object {
-    return {};
+    return this._data;
   }
 
   public isNotEmty(): boolean {
-    return false;
+    return Object.keys(this._data).length > 0;
   }
 }
-
-// const qq = new Aggregation();
-// qq.add('terms', 'myAgg', {
-//   field: 'aaa',
-// });

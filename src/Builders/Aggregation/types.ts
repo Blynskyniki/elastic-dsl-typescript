@@ -1,4 +1,5 @@
 import { AggSchema } from 'Abstract/Schema';
+import { Range, RangeAggregation, PainLessScript } from '../../Types';
 
 export interface AggregationSchema extends AggSchema {
   /**
@@ -10,6 +11,7 @@ export interface AggregationSchema extends AggSchema {
        * @property  Field for aggs
        */
       field: string;
+      filter?: FilterAggregation;
     };
     opts?: {
       /**
@@ -27,4 +29,65 @@ export interface AggregationSchema extends AggSchema {
       exclude?: string | string[];
     };
   };
+  range: {
+    params: {
+      field: string;
+
+      ranges: RangeAggregation;
+    };
+  };
+
+  avg: {
+    params: {
+      field: string;
+
+      script?: PainLessScript;
+    };
+  };
+  max: {
+    params: {
+      field: string;
+
+      script?: PainLessScript;
+    };
+  };
+  min: {
+    params: {
+      field: string;
+
+      script?: PainLessScript;
+    };
+  };
+  sum: {
+    params: {
+      field: string;
+
+      script?: PainLessScript;
+    };
+  };
+  percentiles: {
+    params: {
+      field: string;
+
+      percents?: [number, number, number];
+    };
+  };
+  value_count: {
+    params: {
+      field: string;
+
+      script?: PainLessScript;
+    };
+  };
+  nested: {
+    params: {
+      path: string;
+
+      aggs: { [field: string]: object };
+    };
+  };
+}
+
+export interface FilterAggregation {
+  [key: string]: object;
 }

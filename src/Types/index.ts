@@ -21,9 +21,15 @@ export interface Range {
  */
 export type Sort = Record<string, Record<'order', 'asc' | 'desc'>>;
 
-
 /**
  * Indicates how scores for matching  affect the document’s relevance score.
  * @type ScoreMode
  */
 export type ScoreMode = 'avg' | 'max' | 'min' | 'none' | 'sum';
+
+export type RangeAggregation = Array<{ to: number } | { from: number }>;
+
+export interface PainLessScript {
+  source: string;
+  params: object;
+}
