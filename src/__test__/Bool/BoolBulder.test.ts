@@ -82,8 +82,6 @@ describe('BoolBulder tests', () => {
   });
 
   test('Create extend schema', async () => {
-
-
     interface IQQ extends BoolSchema {
       notExistsFilter: {
         params: {
@@ -111,23 +109,8 @@ describe('BoolBulder tests', () => {
         }
       });
 
-
     expect(b.build()).toEqual({
       bool: {
-        filter: [
-          {
-            exists: {
-              field: 'media.photo',
-            },
-          },
-          {
-            match_all: {
-              undefined: {
-                boost: 0,
-              },
-            },
-          },
-        ],
         must: [
           {
             range: {
@@ -138,37 +121,17 @@ describe('BoolBulder tests', () => {
               },
             },
           },
-          {
-            term: {
-              'articul.keyword': {
-                boost: 300,
-                value: '00001851',
-              },
-            },
-          },
         ],
         should: [
           {
-            test: {
+            notExistsFilter: {
               test: {
-                qq: 10
+                someParams: 'some data'
               }
             }
-          },
+          }
         ],
       },
     });
-  });
-
-
-  test('qq', async () => {
-    const b = new Bool()
-      .add('filter', 'range', {
-        params: {
-          gt: 0
-        }
-      });
-
-    console.log(JSON.stringify(b.build(), null, 2));
   });
 });

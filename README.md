@@ -1,9 +1,11 @@
-### Typed query builders for Elastic search
+### Typescript implementation of the ElasticSearch query DSL
+
 ##### Support :
 
 - nested
 - script_fields
 - bool
+- query
 - aggregations (in progress...)
 
 **Generating hints based on types :**
@@ -12,12 +14,14 @@
 ![bool_type](./img/bool_type.png)
 **After selecting the filter type, it shows options for a specific**
 ![range_opts](./img/range_opts.png)
-****
+
+---
+
 ![range_params](./img/range_params.png)
 
+---
 
-***
-Not all fields are currently implemented. But you can extend the support yourself in your code.***
+Not all fields are currently implemented. But you can extend the support yourself in your code.\*\*\*
 ![range_params](./img/extends_schema.png)
 
 **Advanced exapmles in **tests** directory**
@@ -100,4 +104,10 @@ q.bool.addBuilder(
   },
   "size": 100
 }
+```
+
+#### TEST
+
+```bash
+npm run test
 ```
