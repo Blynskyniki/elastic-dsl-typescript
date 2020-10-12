@@ -1,6 +1,8 @@
+import { AggregationSchema } from '..';
 import { Bool } from '../Builders/Bool';
 import { BoolSchema } from '../Builders/Bool/types';
 import { Sort, Range } from '../Types';
+import { Aggregation } from 'Builders/Aggregation';
 
 /**
  *
@@ -28,12 +30,12 @@ export interface RawQuery {
     };
     range?: Range;
     term?: {
-      field:string,
-      value:string,
-      boost?:number;
+      field: string;
+      value: string;
+      boost?: number;
     };
   };
   sort?: Sort[];
-  aggs?: object;
+  aggs?: Aggregation<AggregationSchema>;
   _source?: string[];
 }

@@ -8,7 +8,7 @@ import { RawQuery } from './types';
  * @Classdesc Generator queries for Elastic search
  */
 export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
-  private _props: Omit<RawQuery, 'query' | 'aggs'> = {};
+  private _props: Omit<RawQuery, 'query'> = {};
   private _query: RawQuery['query'] = {};
 
   /**
@@ -17,7 +17,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @param data
    * @returns {this<BOOL_SCHEMA>}
    */
-  public addProps<K extends keyof Omit<RawQuery, 'query' | 'aggs'>>(prop: K, data: RawQuery[K]) {
+  public addProps<K extends keyof Omit<RawQuery, 'query'>>(prop: K, data: RawQuery[K]) {
     this._props[prop] = data;
     return this;
   }
@@ -55,15 +55,22 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
   public build(): object {
     const obj = {};
     for (const [prop, val] of Object.entries(this._props)) {
-
-      if (['query'].includes(prop)) {
-        continue;
+      switch (prop) {
+        case 'query': {
+          break;
+        }
+        case 'aggs': {
+          obj[prop] = (val as AbstractBulder).build();
+          break;
+        }
+        default: {
+          obj[prop] = val;
+        }
       }
-      obj[prop] = val;
     }
     let query = {};
     for (const [prop, val] of Object.entries(this._query)) {
-      console.log(prop)
+      console.log(prop);
       if (val instanceof AbstractBulder) {
         query = { ...query, ...(val as AbstractBulder).build() };
         continue;
