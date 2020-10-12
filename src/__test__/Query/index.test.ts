@@ -1,6 +1,26 @@
-import { Bool, Query } from '../../index';
+import { Aggregation, Bool, Query } from '../../index';
 
 describe('ScriptFields tests', () => {
+  test('Create aggs', async () => {
+    const q = new Query().addProps(
+      'aggs',
+      new Aggregation().add('sum', 'agg_sum', {
+        params: {
+          field: 'price'
+        }
+      })
+    );
+    expect(q.build()).toEqual({
+      aggs: {
+        agg_sum: {
+          sum: {
+            field: 'price'
+          }
+        }
+      },
+      query: {}
+    });
+  });
   test('Create script field ', async () => {
     const q = new Query()
       .addProps('_source', ['field'])
@@ -10,7 +30,7 @@ describe('ScriptFields tests', () => {
       .addProps('q', 'Lucene query string ')
       .addQuery('match', {
         message: {
-          query: 'query',
+          query: 'query'
         },
       })
       .addQuery('term', {
