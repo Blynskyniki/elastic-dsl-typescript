@@ -134,4 +134,59 @@ describe('BoolBulder tests', () => {
       },
     });
   });
+
+  test('Create mutlti query', async () => {
+    const b = new Bool()
+      .add('must', 'fuzzy', {
+        field: 'f',
+        params: {
+          value: 'some text'
+        },
+        opts: {
+          fuzziness: '1',
+          max_expansions: 1,
+          prefix_length: 3,
+          rewrite: 'constant_score',
+          transpositions: true
+        }
+      })
+      .add('must', 'regexp', {
+        field: 'f',
+        opts: {
+          rewrite: 'constant_score'
+        },
+        params: {
+          flags: 'ALL',
+          value: 'qqqqq'
+        }
+      });
+
+    expect(b.build()).toEqual({
+      bool: {
+        must: [
+          {
+            fuzzy: {
+              f: {
+                fuzziness: '1',
+                max_expansions: 1,
+                prefix_length: 3,
+                rewrite: 'constant_score',
+                transpositions: true,
+                value: 'some text'
+              }
+            }
+          },
+          {
+            regexp: {
+              f: {
+                flags: 'ALL',
+                rewrite: 'constant_score',
+                value: 'qqqqq'
+              }
+            }
+          }
+        ]
+      }
+    });
+  });
 });

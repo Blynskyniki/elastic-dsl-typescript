@@ -14,8 +14,9 @@ export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
 
   /**
    * Add bool
+   * @param type
    * @param bool - empty data will skip
-   * @return {this}
+   * @return {this<BASE_SCHEMA>}
    */
   public addBuilder(type: BoolFields, bool: AbstractBulder) {
     this.checkField(type);
@@ -56,7 +57,7 @@ export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
         }
 
         this._query[type]?.push({
-          [filter]: { [data['field']]: payload },
+          [filter]: { [data['field']!]: payload }
         });
       }
     }
