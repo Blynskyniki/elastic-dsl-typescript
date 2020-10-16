@@ -1,43 +1,35 @@
 import { Schema } from '../../Abstract/Schema';
 import { Range } from '../../Types';
+import {
+  Boost,
+  Fuzziness,
+  MaxExpansions,
+  PrefixLength,
+  Relation,
+  TimeZone,
+  Transpositions,
+  Rewrite
+} from '../../Types/QueryOptions';
 
 /**
  * Base Boool builder filters shema
  *
- * @param range returns documents that contain terms within a provided range.
- * @param exists returns documents that contain an indexed value for a field.
- * @param term returns documents that contain an exact term in a provided field.
- * @param term returns documents that contain one or more exact terms in a provided field.
- *
- * @interface
+ * @property range returns documents that contain terms within a provided range.
+ * @property exists returns documents that contain an indexed value for a field.
+ * @property term returns documents that contain an exact term in a provided field.
+ * @property term returns documents that contain one or more exact terms in a provided field.
+ * @property fuzzy returns documents that contain terms similar to the search term, as measured by a Levenshtein edit distance.
+ * @property ids returns documents based on their IDs. This query uses document IDs stored in the _id field
+ * @property prefix returns documents that contain a specific prefix in a provided field.
+ * @property regexp returns documents that contain terms matching a regular expression.
+ * @property wildcard returns documents that contain terms matching a wildcard pattern.
+ * @interface BoolSchema
  */
 export interface BoolSchema extends Schema {
   range: {
     field: string;
     params: Range;
-    opts?: {
-      /**
-       * You can use the time_zone parameter to convert date values to UTC using a UTC offset.
-       */
-      time_zone?: string;
-      /**
-       * Floating point number used to decrease or increase the relevance scores of a query. Defaults to 1.0.
-       */
-      boost?: number;
-      /**
-       * Indicates how the range query matches values for range fields. Valid values are:
-       *
-       * INTERSECTS (Default)
-       * Matches documents with a range field value that intersects the query’s range.
-       *
-       * CONTAINS
-       * Matches documents with a range field value that entirely contains the query’s range.
-       *
-       * WITHIN
-       * Matches documents with a range field value entirely within the query’s range.
-       */
-      relation?: 'INTERSECTS' | 'CONTAINS' | 'WITHIN';
-    };
+    opts?: Boost | Relation | TimeZone;
   };
   exists: {
     params: {
@@ -52,30 +44,71 @@ export interface BoolSchema extends Schema {
     params: {
       value: string;
     };
-    opts?: {
-      /**
-       * Floating point number used to decrease or increase the relevance scores of a query. Defaults to 1.0.
-       */
-      boost?: number;
-    };
+    opts?: Boost;
   };
   terms: {
     field: string;
     params: {
       value: string[];
     };
-    opts?: {
-      /**
-       * Floating point number used to decrease or increase the relevance scores of a query. Defaults to 1.0.
-       */
-      boost?: number;
+    opts?: Boost;
+  };
+  fuzzy: {
+    field: string;
+    params: {
+      value: string;
+    };
+    opts?: Fuzziness | MaxExpansions | PrefixLength | Transpositions | Rewrite;
+  };
+  ids: {
+    params: {
+      values: string[];
     };
   };
+  prefix: {
+    field: string;
 
-  match_all: {
-    params: {};
-    opts?: {
-      boost?: number;
+    params: {
+      value: string;
     };
+    opts?: Rewrite;
+  };
+  regexp: {
+    field: string;
+    params: {
+      value: string;
+      /**
+       * ALL (Default)
+       * Enables all optional operators.
+       * COMPLEMENT
+       * Enables the ~ operator. You can use ~ to negate the shortest following pattern. For example:
+       *
+       * a~bc   # matches 'adc' and 'aec' but not 'abc'
+       * INTERVAL
+       * Enables the <> operators. You can use <> to match a numeric range. For example:
+       *
+       * foo<1-100>      # matches 'foo1', 'foo2' ... 'foo99', 'foo100'
+       * foo<01-100>     # matches 'foo01', 'foo02' ... 'foo99', 'foo100'
+       * INTERSECTION
+       * Enables the & operator, which acts as an AND operator. The match will succeed if patterns on both the left side AND the right side matches. For example:
+       *
+       * aaa.+&.+bbb  # matches 'aaabbb'
+       * ANYSTRING
+       * Enables the @ operator. You can use @ to match any entire string.
+       *
+       * You can combine the @ operator with & and ~ operators to create an "everything except" logic. For example:
+       *
+       * @&~(abc.+)  # matches everything except terms beginning with 'abc'
+       */
+      flags: 'ALL' | 'COMPLEMENT' | 'INTERSECTION' | 'ANYSTRING';
+    };
+    opts?: Rewrite;
+  };
+  wildcard: {
+    field: string;
+    params: {
+      value: string;
+    };
+    opts?: Rewrite | Boost;
   };
 }
