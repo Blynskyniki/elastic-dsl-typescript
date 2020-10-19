@@ -18,6 +18,7 @@ import {
 } from '../../Types/QueryOptions';
 
 /**
+ * Base fulltext search builder  shema
  *
  * @property match_all the most simple query, which matches all documents, giving them all a _score of 1.0
  * @property match the standard query for performing full text queries, including fuzzy matching and phrase or proximity queries.
@@ -57,7 +58,6 @@ export interface TextSchema extends Schema {
     };
     opts?: ZeroTermsQuery | Analyzer;
   };
-
   query_string: {
     params: {
       query: string;

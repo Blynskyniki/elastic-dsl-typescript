@@ -93,7 +93,7 @@ describe('BoolBulder tests', () => {
 
     const b = new Bool<IQQ>()
       .add('must', 'range', {
-        field: 'price',
+        field: "price",
         params: {
           gte: 0,
           lte: Number.MAX_VALUE
@@ -103,9 +103,9 @@ describe('BoolBulder tests', () => {
         }
       })
       .add('should', 'notExistsFilter', {
-        field: 'test',
+        field: "test",
         params: {
-          someParams: 'some data'
+          someParams: "some data"
         }
       });
 
@@ -126,7 +126,7 @@ describe('BoolBulder tests', () => {
           {
             notExistsFilter: {
               test: {
-                someParams: 'some data'
+                someParams: "some data"
               }
             }
           }
@@ -138,26 +138,26 @@ describe('BoolBulder tests', () => {
   test('Create mutlti query', async () => {
     const b = new Bool()
       .add('must', 'fuzzy', {
-        field: 'f',
+        field: "f",
         params: {
-          value: 'some text'
+          value: "some text"
         },
         opts: {
-          fuzziness: '1',
+          fuzziness: "1",
           max_expansions: 1,
           prefix_length: 3,
-          rewrite: 'constant_score',
+          rewrite: "constant_score",
           transpositions: true
         }
       })
-      .add('must', 'regexp', {
-        field: 'f',
+      .add("must", "regexp", {
+        field: "f",
         opts: {
-          rewrite: 'constant_score'
+          rewrite: "constant_score"
         },
         params: {
-          flags: 'ALL',
-          value: 'qqqqq'
+          flags: "ALL",
+          value: "qqqqq"
         }
       });
 
@@ -167,21 +167,75 @@ describe('BoolBulder tests', () => {
           {
             fuzzy: {
               f: {
-                fuzziness: '1',
+                fuzziness: "1",
                 max_expansions: 1,
                 prefix_length: 3,
-                rewrite: 'constant_score',
+                rewrite: "constant_score",
                 transpositions: true,
-                value: 'some text'
+                value: "some text"
               }
             }
           },
           {
             regexp: {
               f: {
-                flags: 'ALL',
-                rewrite: 'constant_score',
-                value: 'qqqqq'
+                flags: "ALL",
+                rewrite: "constant_score",
+                value: "qqqqq"
+              }
+            }
+          }
+        ]
+      }
+    });
+  });
+  test("Setters", async () => {
+    const testTerm = {
+      params: {
+        value: "11"
+      },
+      field: "test"
+    };
+    const b = new Bool()
+      .Filter("term", testTerm)
+      .Should("term", testTerm)
+      .Must("term", testTerm)
+      .Must_Not("term", testTerm);
+
+    expect(b.build()).toEqual({
+      bool: {
+        filter: [
+          {
+            term: {
+              test: {
+                value: "11"
+              }
+            }
+          }
+        ],
+        must: [
+          {
+            term: {
+              test: {
+                value: "11"
+              }
+            }
+          }
+        ],
+        must_not: [
+          {
+            term: {
+              test: {
+                value: "11"
+              }
+            }
+          }
+        ],
+        should: [
+          {
+            term: {
+              test: {
+                value: "11"
               }
             }
           }
