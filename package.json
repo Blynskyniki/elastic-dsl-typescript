@@ -1,20 +1,32 @@
 {
-  "name": "elastic-query-builder",
-  "version": "1.0.0",
+  "name": "elastic-dsl-typescript",
+  "version": "1.0.1",
   "description": "Node.js ElasticSearch search query builder",
   "main": "./",
   "scripts": {
-    "test": "./node_modules/.bin/jest -i --coverage --forceExit"
+    "test": "./node_modules/.bin/jest -i --coverage --forceExit",
+    "copyData": "cp package.json ./dist/package.json && cp ./README.md  ./dist/README.md && cp ./LICENSE  ./dist/LICENSE && cp -r ./img  ./dist/img ",
+    "build": "rm -rf ./dist && ./node_modules/.bin/tsc",
+    "prepublish": "npm run build && npm run copyData &&  cd ./dist "
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blynskyniki/elastic-query-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Blynskyniki/elastic-query-builder/issues"
+  },
+  "homepage": "https://github.com/Blynskyniki/elastic-query-builder/#readme",
   "keywords": [
     "ElasticSearch",
     "DSL",
     "elastic",
     "query",
-    "typescript"
+    "typescript",
+    "IDE hints"
   ],
   "author": "Blynskyniki",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.12.27",

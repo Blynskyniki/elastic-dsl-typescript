@@ -6,10 +6,31 @@ type BoolQueryData = Partial<Record<BoolFields, object[]>>;
 
 export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
   private _query: BoolQueryData = {};
+
   private checkField(type: BoolFields) {
     if (!(type in this._query)) {
       this._query[type] = [];
     }
+  }
+
+  public Should<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
+    this.add("should", filter, data);
+    return this;
+  }
+
+  public Filter<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
+    this.add("filter", filter, data);
+    return this;
+  }
+
+  public Must<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
+    this.add("must", filter, data);
+    return this;
+  }
+
+  public Must_Not<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
+    this.add("must_not", filter, data);
+    return this;
   }
 
   /**
@@ -18,7 +39,7 @@ export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @param bool - empty data will skip
    * @return {this<BASE_SCHEMA>}
    */
-  public addBuilder(type: BoolFields, bool: AbstractBulder) {
+  public addBuilder(type: BoolFields, bool: AbstractBulder): this {
     this.checkField(type);
     bool.isNotEmty() && this._query[type]?.push(bool.build());
     return this;
@@ -57,7 +78,7 @@ export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
         }
 
         this._query[type]?.push({
-          [filter]: { [data['field']!]: payload }
+          [filter]: { [data["field"]!]: payload }
         });
       }
     }
