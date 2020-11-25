@@ -16,7 +16,7 @@ export class TEXT<BASE_SCHEMA extends TextSchema> extends AbstractBulder {
    * Add conditions for Bool
    * @param filter
    * @param data
-   * @returns {Omit<TEXT<BASE_SCHEMA>, "add">}
+   * @returns {this<BASE_SCHEMA>}
    */
   public add<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]): Omit<this, "add"> {
     if (data.field) {

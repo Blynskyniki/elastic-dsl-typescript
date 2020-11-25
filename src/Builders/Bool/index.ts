@@ -4,7 +4,7 @@ import { BoolSchema } from './types';
 
 type BoolQueryData = Partial<Record<BoolFields, object[]>>;
 
-export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
+export class Bool<BASE_SCHEMA extends BoolSchema = BoolSchema> extends AbstractBulder {
   private _query: BoolQueryData = {};
 
   private checkField(type: BoolFields) {
@@ -50,7 +50,7 @@ export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @return {boolean}
    */
   public isNotEmty(): boolean {
-    return Object.keys(this._query).filter((field) => field.length).length > 0;
+    return Object.keys(this._query).filter(field => field.length).length > 0;
   }
 
   /**
@@ -64,9 +64,16 @@ export class Bool<BASE_SCHEMA extends BoolSchema> extends AbstractBulder {
     this.checkField(type);
 
     switch (filter) {
-      case 'exists': {
+      case "exists": {
         this._query[type]?.push({
-          [filter]: { field: (data.params as BASE_SCHEMA['exists']['params']).fieldName },
+          [filter]: { field: (data.params as BASE_SCHEMA["exists"]["params"]).fieldName }
+        });
+        break;
+      }
+      case "term":
+      case "terms": {
+        this._query[type]?.push({
+          [filter]: { [data["field"]!]: (data.params as object)["value"], ...(data.opts as object) }
         });
         break;
       }

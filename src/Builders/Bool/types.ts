@@ -8,7 +8,14 @@ import {
   Relation,
   TimeZone,
   Transpositions,
-  Rewrite
+  Rewrite,
+  Analyzer,
+  AutoGenerateSynonymsPhraseQuery,
+  FuzzyTranspositions,
+  Lenient,
+  Operator,
+  MinimumShouldMatch,
+  ZeroTermsQuery
 } from '../../Types/QueryOptions';
 
 /**
@@ -39,17 +46,37 @@ export interface BoolSchema extends Schema {
       fieldName: string;
     };
   };
+  match: {
+    field: string;
+    params: {
+      /**
+       * (Required) Text, number, boolean value or date you wish to find in the provided <field>.
+       */
+      query: string | number | boolean;
+    };
+    opts?:
+      | Analyzer
+      | AutoGenerateSynonymsPhraseQuery
+      | Fuzziness
+      | MaxExpansions
+      | PrefixLength
+      | FuzzyTranspositions
+      | Lenient
+      | Operator
+      | MinimumShouldMatch
+      | ZeroTermsQuery;
+  };
   term: {
     field: string;
     params: {
-      value: string;
+      value: string | number | boolean;
     };
     opts?: Boost;
   };
   terms: {
     field: string;
     params: {
-      value: string[];
+      value: string[] | number[] | boolean[];
     };
     opts?: Boost;
   };
