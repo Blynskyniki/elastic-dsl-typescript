@@ -16,6 +16,7 @@ describe('BoolBulder tests', () => {
       },
     );
 
+
     expect(b.build()).toHaveProperty(
       'bool',
       expect.objectContaining({
@@ -76,8 +77,8 @@ describe('BoolBulder tests', () => {
     });
 
     expect(b.build()).toHaveProperty(
-      'bool',
-      expect.objectContaining({ filter: [{ terms: { articul: { boost: 2, value: ['00001851'] } } }] }),
+      "bool",
+      expect.objectContaining({ filter: [{ terms: { articul: ["00001851"], boost: 2 } }] })
     );
   });
 
@@ -117,7 +118,7 @@ describe('BoolBulder tests', () => {
               price: {
                 boost: 120,
                 gte: 0,
-                lte: 1.7976931348623157e308,
+                lte: 1.7976931348623157e308
               },
             },
           },
@@ -130,14 +131,14 @@ describe('BoolBulder tests', () => {
               }
             }
           }
-        ],
+        ]
       },
     });
   });
 
-  test('Create mutlti query', async () => {
+  test("Create mutlti query", async () => {
     const b = new Bool()
-      .add('must', 'fuzzy', {
+      .add("must", "fuzzy", {
         field: "f",
         params: {
           value: "some text"

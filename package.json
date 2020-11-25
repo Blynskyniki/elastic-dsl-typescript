@@ -1,13 +1,13 @@
 {
   "name": "elastic-dsl-typescript",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "Node.js ElasticSearch search query builder",
   "main": "./",
   "scripts": {
     "test": "./node_modules/.bin/jest -i --coverage --forceExit",
-    "copyData": "cp package.json ./dist/package.json && cp ./README.md  ./dist/README.md && cp ./LICENSE  ./dist/LICENSE && cp -r ./img  ./dist/img ",
+    "copyData": "cp package.json ./dist/package.json && cp ./README.md  ./dist/README.md && cp ./LICENSE  ./dist/LICENSE && cp -r ./img  ./dist/img && cp -r ./src  ./dist/ ",
     "build": "rm -rf ./dist && ./node_modules/.bin/tsc",
-    "prepublish": "npm run build && npm run copyData &&  cd ./dist "
+    "pub": "npm run build && npm run copyData &&  cd ./dist && npm  publish"
   },
   "repository": {
     "type": "git",

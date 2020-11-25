@@ -56,10 +56,10 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
     const obj = {};
     for (const [prop, val] of Object.entries(this._props)) {
       switch (prop) {
-        case 'query': {
+        case "query": {
           break;
         }
-        case 'aggs': {
+        case "aggs": {
           obj[prop] = (val as AbstractBulder).build();
           break;
         }
@@ -70,7 +70,6 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
     }
     let query = {};
     for (const [prop, val] of Object.entries(this._query)) {
-      console.log(prop);
       if (val instanceof AbstractBulder) {
         query = { ...query, ...(val as AbstractBulder).build() };
         continue;

@@ -38,17 +38,16 @@ export interface TextSchema extends Schema {
       query: string | Date | number;
     };
 
-    opts?:
-      | Fuzziness
-      | MaxExpansions
-      | PrefixLength
-      | MinimumShouldMatch
-      | FuzzyTranspositions
-      | Lenient
-      | Operator
-      | Analyzer
-      | ZeroTermsQuery
-      | AutoGenerateSynonymsPhraseQuery;
+    opts?: Fuzziness &
+      MaxExpansions &
+      PrefixLength &
+      MinimumShouldMatch &
+      FuzzyTranspositions &
+      Lenient &
+      Operator &
+      Analyzer &
+      ZeroTermsQuery &
+      AutoGenerateSynonymsPhraseQuery;
   };
   match_phrase: {
     field: string;
@@ -77,3 +76,4 @@ export interface TextSchema extends Schema {
       | AnalyzeWildcard;
   };
 }
+
