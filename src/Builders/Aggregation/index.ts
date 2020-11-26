@@ -5,8 +5,21 @@ export class Aggregation<SCHEMA extends AggregationSchema> extends AbstractBulde
   private _data = {};
 
   public add<Type extends keyof SCHEMA>(aggType: Type, name: string, d: SCHEMA[Type]) {
+    const { filter, ...all } = d.params as { filter?: any };
+    if (filter) {
+      this._data[name] = {
+        filter,
+        aggs: {
+          [`${name}_filtered`]: {
+            [aggType]: { ...(all as object), ...((d.opts as object) || {}) }
+          }
+        }
+      };
+      return this;
+    }
+
     this._data[name] = {
-      [aggType]: { ...(d.params as object), ...((d.opts as object) || {}) },
+      [aggType]: { ...(d.params as object), ...((d.opts as object) || {}) }
     };
     return this;
   }

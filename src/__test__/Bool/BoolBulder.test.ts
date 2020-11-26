@@ -18,19 +18,8 @@ describe('BoolBulder tests', () => {
 
 
     expect(b.build()).toHaveProperty(
-      'bool',
-      expect.objectContaining({
-        must: [
-          {
-            term: {
-              articul: {
-                boost: 1,
-                value: '00001851',
-              },
-            },
-          },
-        ],
-      }),
+      "bool",
+      expect.objectContaining({ "must": [{ "term": { "articul": "00001851", "boost": 1 } }] })
     );
   });
   test('Create range query', async () => {
@@ -208,36 +197,32 @@ describe('BoolBulder tests', () => {
         filter: [
           {
             term: {
-              test: {
-                value: "11"
-              }
+              test: "11"
+
             }
           }
         ],
         must: [
           {
             term: {
-              test: {
-                value: "11"
-              }
+              test: "11"
+
             }
           }
         ],
         must_not: [
           {
             term: {
-              test: {
-                value: "11"
-              }
+              test: "11"
+
             }
           }
         ],
         should: [
           {
             term: {
-              test: {
-                value: "11"
-              }
+              test: "11"
+
             }
           }
         ]

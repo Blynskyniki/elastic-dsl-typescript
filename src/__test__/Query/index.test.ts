@@ -65,9 +65,8 @@ describe('ScriptFields tests', () => {
                 must: [
                   {
                     term: {
-                      articul: {
-                        value: '111',
-                      },
+                      articul: "111"
+
                     },
                   },
                 ],
