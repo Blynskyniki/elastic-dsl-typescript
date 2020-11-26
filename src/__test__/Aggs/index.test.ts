@@ -8,10 +8,10 @@ describe('Check aggs builder', () => {
   test('Create avg', async () => {
     const a = new Aggregation().add('avg', 'my_avg', {
       params: {
-        field: 'price',
+        field: "price",
         script: {
           params: {},
-          source: 'doc.my_avg.value * 2'
+          source: "doc.my_avg.value * 2"
         }
       }
     });
@@ -19,10 +19,10 @@ describe('Check aggs builder', () => {
     expect(a.build()).toEqual({
       my_avg: {
         avg: {
-          field: 'price',
+          field: "price",
           script: {
             params: {},
-            source: 'doc.my_avg.value * 2'
+            source: "doc.my_avg.value * 2"
           }
         }
       }
@@ -32,21 +32,21 @@ describe('Check aggs builder', () => {
     const a = new Aggregation()
       .add('max', 'my_max', {
         params: {
-          field: 'price',
+          field: "price",
 
           script: {
             params: {},
-            source: 'doc.my_max.value * 2'
+            source: "doc.my_max.value * 2"
           }
         }
       })
       .add('min', 'my_min', {
         params: {
-          field: 'price',
+          field: "price",
 
           script: {
             params: {},
-            source: 'doc.my_min.value * 2'
+            source: "doc.my_min.value * 2"
           }
         }
       });
@@ -54,19 +54,19 @@ describe('Check aggs builder', () => {
     expect(a.build()).toEqual({
       my_max: {
         max: {
-          field: 'price',
+          field: "price",
           script: {
             params: {},
-            source: 'doc.my_max.value * 2'
+            source: "doc.my_max.value * 2"
           }
         }
       },
       my_min: {
         min: {
-          field: 'price',
+          field: "price",
           script: {
             params: {},
-            source: 'doc.my_min.value * 2'
+            source: "doc.my_min.value * 2"
           }
         }
       }
@@ -76,11 +76,11 @@ describe('Check aggs builder', () => {
   test('Create terms', async () => {
     const a = new Aggregation().add('terms', 'my_terms', {
       params: {
-        field: 'color'
+        field: "color"
       },
       opts: {
-        exclude: ['red'],
-        include: ['black', 'green'],
+        exclude: ["red"],
+        include: ["black", "green"],
         min_doc_count: 2,
         size: 100
       }
@@ -89,9 +89,9 @@ describe('Check aggs builder', () => {
     expect(a.build()).toEqual({
       my_terms: {
         terms: {
-          exclude: ['red'],
-          field: 'color',
-          include: ['black', 'green'],
+          exclude: ["red"],
+          field: "color",
+          include: ["black", "green"],
           min_doc_count: 2,
           size: 100
         }
@@ -102,7 +102,7 @@ describe('Check aggs builder', () => {
   test('Create range', async () => {
     const a = new Aggregation().add('range', 'my_range', {
       params: {
-        field: 'price',
+        field: "price",
         ranges: [
           {
             from: 100
@@ -117,7 +117,7 @@ describe('Check aggs builder', () => {
     expect(a.build()).toEqual({
       my_range: {
         range: {
-          field: 'price',
+          field: "price",
           ranges: [
             {
               from: 100
@@ -136,7 +136,7 @@ describe('Check aggs builder', () => {
 
     a.add('range', 'my_range', {
       params: {
-        field: 'price',
+        field: "price",
         ranges: [
           {
             from: 100
@@ -149,5 +149,28 @@ describe('Check aggs builder', () => {
     });
 
     expect(a.isNotEmty()).toBeTruthy();
+  });
+
+  test("Create filtered terms agg", async () => {
+    const a = new Aggregation().add("terms", "availStoreSizes", {
+      params: {
+        field: "availSizes.sizes.keyword",
+        filter: { terms: { "availSizes.IStoreId.keyword": ["0000"] } }
+      },
+      opts: {
+        size: 50
+      }
+    });
+    // availStoreSizes: {
+    //   aggs: { sizes: { terms: { field: 'availSizes.sizes.keyword', size: 50 } } },
+    //   filter: { terms: { 'availSizes.IStoreId.keyword': ['0000'] } },
+    // },
+
+    expect(a.build()).toEqual({
+      availStoreSizes: {
+        aggs: { availStoreSizes_filtered: { terms: { field: "availSizes.sizes.keyword", size: 50 } } },
+        filter: { terms: { "availSizes.IStoreId.keyword": ["0000"] } }
+      }
+    });
   });
 });

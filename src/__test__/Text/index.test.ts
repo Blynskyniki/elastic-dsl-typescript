@@ -30,6 +30,7 @@ describe('TEXT tests', () => {
           auto_generate_synonyms_phrase_query: true,
           fuzziness: "6",
           fuzzy_transpositions: true,
+          max_expansions: 1,
           operator: "AND",
           prefix_length: 15,
           query: "search text"
