@@ -1,5 +1,5 @@
-import { AggSchema } from 'Abstract/Schema';
-import { Range, RangeAggregation, PainLessScript } from '../../Types';
+import { AggSchema } from "../../Abstract/Schema";
+import { Range, RangeAggregation, PainLessScript } from "../../Types";
 
 export interface AggregationSchema extends AggSchema {
   /**
