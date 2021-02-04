@@ -8,8 +8,9 @@ import { RawQuery } from './types';
  * @Classdesc Generator queries for Elastic search
  */
 export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
-  private _props: Omit<RawQuery, 'query'> = {};
-  private _query: RawQuery['query'] = {};
+  private _props: Omit<RawQuery, "query"> = {};
+  private _query: RawQuery["query"] = {};
+  private _post_filter: Bool = new Bool<BoolSchema>();
 
   /**
    * Add basic props to Query (size,from,_source,etc...)
@@ -17,7 +18,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @param data
    * @returns {this<BOOL_SCHEMA>}
    */
-  public addProps<K extends keyof Omit<RawQuery, 'query'>>(prop: K, data: RawQuery[K]) {
+  public addProps<K extends keyof Omit<RawQuery, "query">>(prop: K, data: RawQuery[K]) {
     this._props[prop] = data;
     return this;
   }
@@ -38,13 +39,22 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @returns {Bool<BoolSchema>}
    */
   get bool(): Bool<BOOL_SCHEMA> {
-    if (this.isNotExistInQuery('bool')) {
+    if (this.isNotExistInQuery("bool")) {
       this._query.bool = new Bool();
     }
     return this._query.bool!;
   }
 
-  private isNotExistInQuery(prop: keyof RawQuery['query']) {
+  get postFilter(): Bool<BOOL_SCHEMA> {
+    return this._post_filter;
+  }
+
+  public addPostFilter(bool: Bool<BOOL_SCHEMA>) {
+    this._post_filter = bool;
+    return this;
+  }
+
+  private isNotExistInQuery(prop: keyof RawQuery["query"]) {
     return !(prop in this._query);
   }
 
@@ -76,7 +86,10 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
       }
       query[prop] = val;
     }
-    obj['query'] = query;
+    obj["query"] = query;
+    if (this._post_filter.isNotEmty()) {
+      obj["post_filter"] = this._post_filter.build();
+    }
     return obj;
   }
 

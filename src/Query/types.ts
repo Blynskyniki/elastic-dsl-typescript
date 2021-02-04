@@ -1,8 +1,8 @@
-import { AggregationSchema } from '..';
-import { Bool } from '../Builders/Bool';
-import { BoolSchema } from '../Builders/Bool/types';
-import { Sort, Range } from "../Types";
+import { AggregationSchema } from "..";
 import { Aggregation } from "../Builders/Aggregation";
+import { Bool } from "../Builders/Bool";
+import { BoolSchema } from "../Builders/Bool/types";
+import { Range, Sort } from "../Types";
 
 /**
  *
@@ -35,6 +35,10 @@ export interface RawQuery {
       boost?: number;
     };
   };
+  /**
+   * Post aggregations filters
+   */
+  post_filter?: Bool<BoolSchema>;
   sort?: Sort[];
   aggs?: Aggregation<AggregationSchema>;
   _source?: string[];

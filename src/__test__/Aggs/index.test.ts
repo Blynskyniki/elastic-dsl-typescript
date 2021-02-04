@@ -1,4 +1,5 @@
-import { Aggregation } from '../../Builders/Aggregation';
+import { Aggregation } from "../../Builders/Aggregation";
+import { Bool } from "../../Builders/Bool";
 
 describe('Check aggs builder', () => {
   beforeEach(() => {
@@ -170,6 +171,87 @@ describe('Check aggs builder', () => {
       availStoreSizes: {
         aggs: { availStoreSizes_filtered: { terms: { field: "availSizes.sizes.keyword", size: 50 } } },
         filter: { terms: { "availSizes.IStoreId.keyword": ["0000"] } }
+      }
+    });
+  });
+
+  test("Create range with sub aggs", async () => {
+    const a = new Aggregation().add("range", "my_range", {
+      params: {
+        field: "price",
+        filter: new Bool()
+          .Must("exists", {
+            params: {
+              fieldName: "testfield"
+            }
+          })
+          .build(),
+        ranges: [
+          {
+            from: 1
+          }
+        ]
+      }
+    });
+
+    expect(a.build()).toEqual({
+      my_range: {
+        aggs: {
+          my_range_filtered: {
+            range: {
+              field: "price",
+              ranges: [
+                {
+                  from: 1
+                }
+              ]
+            }
+          }
+        },
+        filter: {
+          bool: {
+            must: [
+              {
+                exists: {
+                  field: "testfield"
+                }
+              }
+            ]
+          }
+        }
+      }
+    });
+  });
+  test("Create  term sub aggs", async () => {
+    const a = new Aggregation().add("terms", "testField", {
+      params: {
+        field: "testField",
+        subAgg: {
+          stores: {
+            terms: {
+              field: "availStores",
+              size: 5,
+              include: ["124214"]
+            }
+          }
+        }
+      }
+    });
+
+    expect(a.build()).toEqual({
+      testField: {
+        aggs: {
+          stores: {
+            terms: {
+              field: "availStores",
+              include: ["124214"],
+              size: 5
+            }
+          }
+        },
+        terms: {
+          field: "testField"
+        }
       }
     });
   });
