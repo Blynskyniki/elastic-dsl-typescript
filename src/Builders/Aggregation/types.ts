@@ -1,5 +1,10 @@
 import { AggSchema } from "../../Abstract/Schema";
-import { Range, RangeAggregation, PainLessScript } from "../../Types";
+import { RangeAggregation, PainLessScript } from "../../Types";
+
+
+export interface SubAggregation {
+  subAgg?: FilterAggregation;
+}
 
 export interface AggregationSchema extends AggSchema {
   /**
@@ -12,7 +17,10 @@ export interface AggregationSchema extends AggSchema {
        */
       field: string;
       filter?: FilterAggregation;
-    };
+      /**
+       * @property subAgg Вложенные sub аггрегации
+       */
+    } & SubAggregation;
     opts?: {
       /**
        * @property  Return basket size
@@ -32,7 +40,7 @@ export interface AggregationSchema extends AggSchema {
   range: {
     params: {
       field: string;
-
+      filter?: FilterAggregation;
       ranges: RangeAggregation;
     };
   };
@@ -40,42 +48,42 @@ export interface AggregationSchema extends AggSchema {
   avg: {
     params: {
       field: string;
-
+      filter?: FilterAggregation;
       script?: PainLessScript;
     };
   };
   max: {
     params: {
       field: string;
-
+      filter?: FilterAggregation;
       script?: PainLessScript;
     };
   };
   min: {
     params: {
       field: string;
-
+      filter?: FilterAggregation;
       script?: PainLessScript;
     };
   };
   sum: {
     params: {
       field: string;
-
+      filter?: FilterAggregation;
       script?: PainLessScript;
     };
   };
   percentiles: {
     params: {
       field: string;
-
+      filter?: FilterAggregation;
       percents?: [number, number, number];
     };
   };
   value_count: {
     params: {
       field: string;
-
+      filter?: FilterAggregation;
       script?: PainLessScript;
     };
   };
