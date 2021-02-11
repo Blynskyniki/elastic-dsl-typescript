@@ -1,7 +1,6 @@
 import { AggSchema } from "../../Abstract/Schema";
 import { RangeAggregation, PainLessScript } from "../../Types";
 
-
 export interface SubAggregation {
   subAgg?: FilterAggregation;
 }
@@ -92,6 +91,25 @@ export interface AggregationSchema extends AggSchema {
       path: string;
 
       aggs: { [field: string]: object };
+    };
+  };
+  histogram: {
+    params: {
+      field: string;
+      min_doc_count?: number;
+      /**
+       * The interval must be a positive decimal.
+       */
+      interval: number;
+      /**
+       * With extended_bounds setting, you now can "force" the histogram aggregation to start building buckets on a specific min value and also keep on building buckets up to a max value .
+       * Using extended_bounds only makes sense when min_doc_count is 0 (the empty buckets will never be returned if min_doc_count is greater than 0).
+       */
+      extended_bounds?: {
+        min: number;
+        max: number;
+      };
+      missing?: number | any;
     };
   };
 }
