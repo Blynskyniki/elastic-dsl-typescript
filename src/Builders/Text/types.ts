@@ -1,20 +1,20 @@
 import { Schema } from '../../Abstract/Schema';
 import {
-  Analyzer,
-  Boost,
-  Operator,
-  DefaultField,
-  AutoGenerateSynonymsPhraseQuery,
-  AnalyzeWildcard,
   AllowLeadingWildcard,
-  ZeroTermsQuery,
-  MinimumShouldMatch,
-  Lenient,
-  FuzzyTranspositions,
-  PrefixLength,
-  MaxExpansions,
+  Analyzer,
+  AnalyzeWildcard,
+  AutoGenerateSynonymsPhraseQuery,
+  Boost,
+  DefaultField,
   Fuzziness,
-  FuzzyPrefixLength
+  FuzzyPrefixLength,
+  FuzzyTranspositions,
+  Lenient,
+  MaxExpansions,
+  MinimumShouldMatch,
+  Operator,
+  PrefixLength,
+  ZeroTermsQuery
 } from '../../Types/QueryOptions';
 
 /**

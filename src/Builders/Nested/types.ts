@@ -1,4 +1,4 @@
-import { ScoreMode } from "../../Types";
+import { ScoreMode } from '../../Types';
 
 /**
  * Base nested query

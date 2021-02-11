@@ -1,4 +1,4 @@
-import { Aggregation, Bool, BoolSchema, Query } from "../../index";
+import { Aggregation, Bool, BoolSchema, Query } from '../../index';
 
 describe('ScriptFields tests', () => {
   test('Create aggs', async () => {

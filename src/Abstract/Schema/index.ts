@@ -27,6 +27,6 @@ export interface AggSchema {
   [key: string]: {
     params?: unknown;
     opts?: unknown;
-    field?: unknown;
+
   };
 }

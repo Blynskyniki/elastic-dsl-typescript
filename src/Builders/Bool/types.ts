@@ -1,20 +1,20 @@
 import { Schema } from '../../Abstract/Schema';
 import { Range } from '../../Types';
 import {
-  Boost,
-  Fuzziness,
-  MaxExpansions,
-  PrefixLength,
-  Relation,
-  TimeZone,
-  Transpositions,
-  Rewrite,
   Analyzer,
   AutoGenerateSynonymsPhraseQuery,
+  Boost,
+  Fuzziness,
   FuzzyTranspositions,
   Lenient,
-  Operator,
+  MaxExpansions,
   MinimumShouldMatch,
+  Operator,
+  PrefixLength,
+  Relation,
+  Rewrite,
+  TimeZone,
+  Transpositions,
   ZeroTermsQuery
 } from '../../Types/QueryOptions';
 

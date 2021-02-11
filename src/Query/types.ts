@@ -1,8 +1,8 @@
-import { AggregationSchema } from "..";
-import { Aggregation } from "../Builders/Aggregation";
-import { Bool } from "../Builders/Bool";
-import { BoolSchema } from "../Builders/Bool/types";
-import { Range, Sort } from "../Types";
+import { AggregationSchema } from '..';
+import { Aggregation } from '../Builders/Aggregation';
+import { Bool } from '../Builders/Bool';
+import { BoolSchema } from '../Builders/Bool/types';
+import { Range, Sort } from '../Types';
 
 /**
  *

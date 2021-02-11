@@ -1,5 +1,5 @@
-import { AggSchema } from "../../Abstract/Schema";
-import { RangeAggregation, PainLessScript } from "../../Types";
+import { AggSchema } from '../../Abstract/Schema';
+import { PainLessScript, RangeAggregation } from '../../Types';
 
 export interface SubAggregation {
   subAgg?: FilterAggregation;
