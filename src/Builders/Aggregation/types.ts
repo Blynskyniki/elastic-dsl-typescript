@@ -110,6 +110,7 @@ export interface AggregationSchema extends AggSchema {
         max: number;
       };
       missing?: number | any;
+      filter?: FilterAggregation;
     };
   };
 }
