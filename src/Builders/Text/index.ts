@@ -9,7 +9,7 @@ export class TEXT<BASE_SCHEMA extends TextSchema> extends AbstractBulder {
    * @return {boolean}
    */
   public isNotEmty(): boolean {
-    return Object.keys(this._query).filter((field) => field.length).length > 0;
+    return Object.keys(this._query).filter(field => field.length).length > 0;
   }
 
   /**
@@ -18,7 +18,7 @@ export class TEXT<BASE_SCHEMA extends TextSchema> extends AbstractBulder {
    * @param data
    * @returns {this<BASE_SCHEMA>}
    */
-  public add<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]): Omit<this, "add"> {
+  public add<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]): Omit<this, 'add'> {
     if (data.field) {
       this._query = {
         [filter]: {

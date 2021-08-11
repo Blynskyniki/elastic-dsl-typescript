@@ -14,22 +14,22 @@ export class Bool<BASE_SCHEMA extends BoolSchema = BoolSchema> extends AbstractB
   }
 
   public Should<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
-    this.add("should", filter, data);
+    this.add('should', filter, data);
     return this;
   }
 
   public Filter<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
-    this.add("filter", filter, data);
+    this.add('filter', filter, data);
     return this;
   }
 
   public Must<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
-    this.add("must", filter, data);
+    this.add('must', filter, data);
     return this;
   }
 
   public Must_Not<K extends keyof BASE_SCHEMA>(filter: K, data: BASE_SCHEMA[K]) {
-    this.add("must_not", filter, data);
+    this.add('must_not', filter, data);
     return this;
   }
 
@@ -64,16 +64,16 @@ export class Bool<BASE_SCHEMA extends BoolSchema = BoolSchema> extends AbstractB
     this.checkField(type);
 
     switch (filter) {
-      case "exists": {
+      case 'exists': {
         this._query[type]?.push({
-          [filter]: { field: (data.params as BASE_SCHEMA["exists"]["params"]).fieldName }
+          [filter]: { field: (data.params as BASE_SCHEMA['exists']['params']).fieldName }
         });
         break;
       }
-      case "term":
-      case "terms": {
+      case 'term':
+      case 'terms': {
         this._query[type]?.push({
-          [filter]: { [data["field"]!]: (data.params as object)["value"], ...(data.opts as object) }
+          [filter]: { [data['field']!]: (data.params as object)['value'], ...(data.opts as object) }
         });
         break;
       }
@@ -85,7 +85,7 @@ export class Bool<BASE_SCHEMA extends BoolSchema = BoolSchema> extends AbstractB
         }
 
         this._query[type]?.push({
-          [filter]: { [data["field"]!]: payload }
+          [filter]: { [data['field']!]: payload }
         });
       }
     }

@@ -23,7 +23,8 @@ import {
  * @property match_all the most simple query, which matches all documents, giving them all a _score of 1.0
  * @property match the standard query for performing full text queries, including fuzzy matching and phrase or proximity queries.
  * @property match_phrase like the match query but used for matching exact phrases or word proximity matches.
- * @property query_string returns documents based on a provided query string, using a parser with a strict syntax.
+ * @property query_string Supports the compact Lucene query string syntax, allowing you to specify AND|OR|NOT conditions and multi-field search within a single query string. For expert users only.
+ * @property combined_fields Matches Over multiple fields as if they had been indexed into one combined field..
  */
 export interface TextSchema extends Schema {
   match_all: {
@@ -33,7 +34,6 @@ export interface TextSchema extends Schema {
   };
   match: {
     field: string;
-
     params: {
       query: string | Date | number;
     };
@@ -61,19 +61,24 @@ export interface TextSchema extends Schema {
     params: {
       query: string;
     };
-    opts:
-      | AllowLeadingWildcard
-      | AutoGenerateSynonymsPhraseQuery
-      | Boost
-      | Operator
-      | Analyzer
-      | DefaultField
-      | FuzzyTranspositions
-      | FuzzyPrefixLength
-      | FuzzyTranspositions
-      | FuzzyPrefixLength
-      | Lenient
-      | AnalyzeWildcard;
+    opts?: AllowLeadingWildcard &
+      AutoGenerateSynonymsPhraseQuery &
+      Boost &
+      Operator &
+      Analyzer &
+      DefaultField &
+      FuzzyTranspositions &
+      FuzzyPrefixLength &
+      FuzzyTranspositions &
+      FuzzyPrefixLength &
+      Lenient &
+      AnalyzeWildcard;
+  };
+  combined_fields: {
+    params: {
+      query: string;
+      fields: string[];
+    };
+    opts?: Operator & AutoGenerateSynonymsPhraseQuery & MinimumShouldMatch & ZeroTermsQuery;
   };
 }
-

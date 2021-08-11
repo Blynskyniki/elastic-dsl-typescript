@@ -2,7 +2,7 @@ export interface Boost {
   /**
    *  Floating point number used to decrease or increase the relevance scores of the query. Defaults to 1.0.
    */
-  boost: number;
+  boost?: number;
 }
 
 export interface Operator {
