@@ -138,4 +138,5 @@ export interface BoolSchema extends Schema {
     };
     opts?: Rewrite | Boost;
   };
+
 }
