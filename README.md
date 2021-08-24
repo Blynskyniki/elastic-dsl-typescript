@@ -1,4 +1,4 @@
-### Typescript implementation of the ElasticSearch query DSL
+### Library for generating queries (Elastic DSL) in the typescript language.
 
 ##### Support :
 
