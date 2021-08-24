@@ -2,7 +2,7 @@
 export * from './Query';
 export * from './Query/types';
 
-// abstract
+// Abstract
 export * from './Abstract/AbstractBuilder';
 export * from './Abstract/Schema';
 // Bool
@@ -16,3 +16,8 @@ export * from './Builders/Nested/types';
 // Aggregation
 export * from './Builders/Aggregation/index';
 export * from './Builders/Aggregation/types';
+// Text
+export * from './Builders/Text/index';
+export * from './Builders/Text/types';
+// Eshop facets
+export * from './Builders/EshopFacets';
