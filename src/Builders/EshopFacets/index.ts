@@ -1,8 +1,10 @@
-import {AggregationSchema} from 'Builders/Aggregation/types';
-import {Bool} from 'Builders/Bool';
+import {AggregationSchema} from '../Aggregation/types';
+import {Bool} from '../Bool';
+import {AbstractBulder} from '../../Abstract/AbstractBuilder';
 
 interface IFacet {
-  active: object;
+  [key: string]: object;
+
   inactive: InactiveFacet;
 }
 
@@ -10,9 +12,8 @@ type FacetType = keyof IFacet;
 
 type InactiveFacet = Record<'filter' | 'aggs', object>;
 
-export class EshopFacets {
+export class EshopFacets extends AbstractBulder {
   private _facets: IFacet = {
-    active: {},
     inactive: {
       aggs: {},
       filter: {},
@@ -20,17 +21,18 @@ export class EshopFacets {
   };
 
   public setupInactiveFacets(filter: Bool): void {
-    this._facets.inactive!.filter = filter;
+    this._facets.inactive!.filter = filter.build();
   }
 
-  public addInactiveFacet<Type extends keyof AggregationSchema>(
+  public add<Type extends keyof AggregationSchema>(
       facetType: FacetType,
       aggType: Type,
       name: string,
       d: AggregationSchema[Type],
   ) {
-    const {filter, subAgg, ...all} = d.params as { filter?: any; subAgg?: any };
+    const {filter, subAgg, ...all} = d.params as { filter?: object; subAgg?: object };
     let sub = {};
+    let data = {};
     if (subAgg) {
       sub = {
         aggs: {
@@ -39,7 +41,7 @@ export class EshopFacets {
       };
     }
     if (filter) {
-      this._facets[facetType][name] = {
+      data = {
         filter,
         aggs: {
           [`${name}_filtered`]: {
@@ -48,18 +50,19 @@ export class EshopFacets {
           },
         },
       };
-      return this;
+    } else {
+      data = {
+        [aggType]: {...all, ...((d.opts as object) || {})},
+        ...sub,
+      };
     }
 
-    this._facets[facetType][name] = {
-      [aggType]: {...all, ...((d.opts as object) || {})},
-      ...sub,
-    };
+    facetType === 'inactive' ? (this._facets['inactive']['aggs'][name] = data) : (this._facets[name] = data);
     return this;
   }
 
   public addCustom(facetType: FacetType, name: string, cutsomAgg: object) {
-    this._facets[facetType][name] = cutsomAgg;
+    facetType === 'inactive' ? (this._facets['inactive']['aggs'][name] = cutsomAgg) : (this._facets[name] = cutsomAgg);
   }
 
   public build(): object {
@@ -70,6 +73,6 @@ export class EshopFacets {
   }
 
   public isNotEmty(): boolean {
-    return Object.keys({...this._facets.active, ...this._facets.inactive.aggs}).length > 0;
+    return Object.keys({...this._facets, ...this._facets.inactive.aggs}).length > 1;
   }
 }
