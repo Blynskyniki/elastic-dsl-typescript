@@ -2,7 +2,7 @@ import { AggregationSchema } from 'Builders/Aggregation/types';
 import { Bool } from 'Builders/Bool';
 
 interface IFacet {
-    active: object;
+    active: any;
     inactive: InactiveFacet;
 }
 

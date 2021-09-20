@@ -60,7 +60,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
    */
   public build(opts: Partial<{ withoutAggs: boolean }> = {}): object {
     const {withoutAggs} = opts;
-    const obj = {};
+    const obj: any = {};
     for (const [prop, val] of Object.entries(this._props)) {
       switch (prop) {
         case 'query': {
@@ -78,7 +78,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
         }
       }
     }
-    let query = {};
+    let query: any = {};
     for (const [prop, val] of Object.entries(this._query)) {
       if (val instanceof AbstractBulder) {
         query = {...query, ...(val as AbstractBulder).build()};

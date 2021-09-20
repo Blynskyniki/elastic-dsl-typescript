@@ -2,7 +2,7 @@ import { AbstractBulder } from '../../Abstract/AbstractBuilder';
 import { AggregationSchema } from './types';
 
 export class Aggregation<SCHEMA extends AggregationSchema> extends AbstractBulder {
-    private _data = {};
+    private _data: any = {};
 
     public add<Type extends keyof SCHEMA>(aggType: Type, name: string, d: SCHEMA[Type]) {
         const {filter, subAgg, ...all} = d.params as { filter?: any; subAgg?: any };

@@ -1,7 +1,7 @@
 import { AbstractBulder } from '../../Abstract/AbstractBuilder';
 
 export class ScriptFields extends AbstractBulder {
-    private _scripts = {
+    private _scripts: any = {
         script_fields: {},
     };
 

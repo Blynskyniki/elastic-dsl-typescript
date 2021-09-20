@@ -59,7 +59,6 @@ describe('ScriptFields tests', () => {
                 }
             })
         );
-        console.log(JSON.stringify(q.build(), null, 2));
         expect(q.isNotEmty()).toEqual(true);
         expect(q.build()).toHaveProperty(
             'post_filter',
