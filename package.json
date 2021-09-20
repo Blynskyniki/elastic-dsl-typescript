@@ -7,7 +7,7 @@
   "scripts": {
     "prepublish": " npm run build && npm version patch -m \"Upgrade to %s \"",
     "test": "./node_modules/.bin/jest -i --coverage --forceExit",
-    "build": "rm -rf ./dist && ./node_modules/.bin/tsc",
+    "build": "rm -rf ./dist && ./node_modules/.bin/tsc"
   },
   "repository": {
     "type": "git",
