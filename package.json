@@ -1,6 +1,6 @@
 {
   "name": "elastic-dsl-typescript",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Node.js ElasticSearch search query builder",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
