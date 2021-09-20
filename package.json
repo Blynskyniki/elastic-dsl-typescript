@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepublish": " npm run build && npm version patch -m \"Upgrade to %s \"",
+    "prepublish": " npm run build && npm version prerelease -m \"Upgrade to %s \"",
     "test": "./node_modules/.bin/jest -i --coverage --forceExit",
     "copyData": "cp package.json ./dist/package.json && cp ./README.md  ./dist/README.md && cp ./LICENSE  ./dist/LICENSE && cp -r ./img  ./dist/img && cp -r ./src  ./dist/ ",
     "build": "rm -rf ./dist && ./node_modules/.bin/tsc",
