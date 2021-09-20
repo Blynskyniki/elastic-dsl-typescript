@@ -1,75 +1,78 @@
-import { AggregationSchema } from 'Builders/Aggregation/types';
-import { Bool } from 'Builders/Bool';
+import {AggregationSchema} from '../Aggregation/types';
+import {Bool} from '../Bool';
+import {AbstractBulder} from '../../Abstract/AbstractBuilder';
 
 interface IFacet {
-    active: any;
-    inactive: InactiveFacet;
+  [key: string]: object;
+
+  inactive: InactiveFacet;
 }
 
 type FacetType = keyof IFacet;
 
 type InactiveFacet = Record<'filter' | 'aggs', object>;
 
-export class EshopFacets {
-    private _facets: IFacet = {
-        active: {},
-        inactive: {
-            aggs: {},
-            filter: {},
+export class EshopFacets extends AbstractBulder {
+  private _facets: IFacet = {
+    inactive: {
+      aggs: {},
+      filter: {},
+    },
+  };
+
+  public setupInactiveFacets(filter: Bool): void {
+    this._facets.inactive!.filter = filter.build();
+  }
+
+  public add<Type extends keyof AggregationSchema>(
+      facetType: FacetType,
+      aggType: Type,
+      name: string,
+      d: AggregationSchema[Type],
+  ) {
+    const {filter, subAgg, ...all} = d.params as { filter?: object; subAgg?: object };
+    let sub = {};
+    let data = {};
+    if (subAgg) {
+      sub = {
+        aggs: {
+          ...subAgg,
         },
-    };
-
-    public setupInactiveFacets(filter: Bool): void {
-        this._facets.inactive!.filter = filter;
+      };
     }
-
-    public addInactiveFacet<Type extends keyof AggregationSchema>(
-        facetType: FacetType,
-        aggType: Type,
-        name: string,
-        d: AggregationSchema[Type],
-    ) {
-        const {filter, subAgg, ...all} = d.params as { filter?: any; subAgg?: any };
-        let sub = {};
-        if (subAgg) {
-            sub = {
-                aggs: {
-                    ...subAgg,
-                },
-            };
-        }
-        if (filter) {
-            this._facets[facetType][name] = {
-                filter,
-                aggs: {
-                    [`${name}_filtered`]: {
-                        [aggType]: {...all, ...((d.opts as object) || {})},
-                        ...sub,
-                    },
-                },
-            };
-            return this;
-        }
-
-        this._facets[facetType][name] = {
+    if (filter) {
+      data = {
+        filter,
+        aggs: {
+          [`${name}_filtered`]: {
             [aggType]: {...all, ...((d.opts as object) || {})},
             ...sub,
-        };
-        return this;
+          },
+        },
+      };
+    } else {
+      data = {
+        [aggType]: {...all, ...((d.opts as object) || {})},
+        ...sub,
+      };
     }
 
-    public addCustom(facetType: FacetType, name: string, cutsomAgg: object) {
-        this._facets[facetType][name] = cutsomAgg;
-    }
+    facetType === 'inactive' ? (this._facets['inactive']['aggs'][name] = data) : (this._facets[name] = data);
+    return this;
+  }
 
-    public build(): object {
-        if (Object.keys(this._facets.inactive.aggs).length > 0 && Object.keys(this._facets.inactive.filter).length < 1) {
-            throw new Error('Please setup inactive facets');
-        }
-        return this._facets;
-    }
+  public addCustom(facetType: FacetType, name: string, cutsomAgg: object) {
+    facetType === 'inactive' ? (this._facets['inactive']['aggs'][name] = cutsomAgg) : (this._facets[name] = cutsomAgg);
+  }
 
-    public isNotEmty(): boolean {
-        return Object.keys({...this._facets.active, ...this._facets.inactive.aggs}).length > 0;
+  public build(): object {
+    if (Object.keys(this._facets.inactive.aggs).length > 0 && Object.keys(this._facets.inactive.filter).length < 1) {
+      throw new Error('Please setup inactive facets');
     }
+    return this._facets;
+  }
+
+  public isNotEmty(): boolean {
+    return Object.keys({...this._facets, ...this._facets.inactive.aggs}).length > 1;
+  }
 }
