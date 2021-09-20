@@ -23,5 +23,6 @@ yarn.lock
 # PNPM - package manager
 shrinkwrap.yaml
 
-# Project
-dist/
+# Project sources
+src
+img
