@@ -13,6 +13,21 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
   private _post_filter: Bool = new Bool<BoolSchema>();
 
   /**
+   * Auto init bool in query and get object ref
+   * @returns {Bool<BoolSchema>}
+   */
+  get bool(): Bool<BOOL_SCHEMA> {
+    if (this.isNotExistInQuery('bool')) {
+      this._query.bool = new Bool();
+    }
+    return this._query.bool!;
+  }
+
+  get postFilter(): Bool<BOOL_SCHEMA> {
+    return this._post_filter;
+  }
+
+  /**
    * Add basic props to Query (size,from,_source,etc...)
    * @param prop
    * @param data
@@ -34,28 +49,9 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
     return this;
   }
 
-  /**
-   * Auto init bool in query and get object ref
-   * @returns {Bool<BoolSchema>}
-   */
-  get bool(): Bool<BOOL_SCHEMA> {
-    if (this.isNotExistInQuery('bool')) {
-      this._query.bool = new Bool();
-    }
-    return this._query.bool!;
-  }
-
-  get postFilter(): Bool<BOOL_SCHEMA> {
-    return this._post_filter;
-  }
-
   public addPostFilter(bool: Bool<BOOL_SCHEMA>) {
     this._post_filter = bool;
     return this;
-  }
-
-  private isNotExistInQuery(prop: keyof RawQuery['query']) {
-    return !(prop in this._query);
   }
 
   /**
@@ -63,7 +59,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @returns {{}}
    */
   public build(opts: Partial<{ withoutAggs: boolean }> = {}): object {
-    const { withoutAggs } = opts;
+    const {withoutAggs} = opts;
     const obj = {};
     for (const [prop, val] of Object.entries(this._props)) {
       switch (prop) {
@@ -85,7 +81,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
     let query = {};
     for (const [prop, val] of Object.entries(this._query)) {
       if (val instanceof AbstractBulder) {
-        query = { ...query, ...(val as AbstractBulder).build() };
+        query = {...query, ...(val as AbstractBulder).build()};
         continue;
       }
       query[prop] = val;
@@ -98,6 +94,10 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
   }
 
   public isNotEmty(): boolean {
-    return Object.values({ ...(this._query as object), ...(this._query as object) }).flat().length > 0;
+    return Object.values({...(this._query as object), ...(this._query as object)}).flat().length > 0;
+  }
+
+  private isNotExistInQuery(prop: keyof RawQuery['query']) {
+    return !(prop in this._query);
   }
 }

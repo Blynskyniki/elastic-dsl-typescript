@@ -3,20 +3,20 @@
  * @Schema
  */
 export interface Schema {
-  [key: string]: {
-    /**
-     * Query conditions
-     */
-    params: unknown;
-    /**
-     * Query options
-     */
-    opts?: unknown;
-    /**
-     * The field by which the request will be
-     */
-    field?: string;
-  };
+    [key: string]: {
+        /**
+         * Query conditions
+         */
+        params: unknown;
+        /**
+         * Query options
+         */
+        opts?: unknown;
+        /**
+         * The field by which the request will be
+         */
+        field?: string;
+    };
 }
 
 /**
@@ -24,9 +24,9 @@ export interface Schema {
  * @Schema
  */
 export interface AggSchema {
-  [key: string]: {
-    params?: unknown;
-    opts?: unknown;
+    [key: string]: {
+        params?: unknown;
+        opts?: unknown;
 
-  };
+    };
 }

@@ -1,4 +1,4 @@
-import { AggregationSchema } from '..';
+import { AggregationSchema, EshopFacets } from '..';
 import { Aggregation } from '../Builders/Aggregation';
 import { Bool } from '../Builders/Bool';
 import { BoolSchema } from '../Builders/Bool/types';
@@ -14,6 +14,7 @@ import { Range, Sort } from '../Types';
  * @param aggs Aggregations
  * @param q Query in the Lucene query string syntax.
  * @param _source Source select data
+ * @param index Index for search
  *
  * @type RawQuery
  */
@@ -22,6 +23,7 @@ export interface RawQuery {
   from?: number;
   explain?: boolean;
   q?: string;
+  index?: string;
   query: {
     match?: Record<'message', Record<'query', string>>;
     bool?: Bool<BoolSchema>;
@@ -40,6 +42,6 @@ export interface RawQuery {
    */
   post_filter?: Bool<BoolSchema>;
   sort?: Sort[];
-  aggs?: Aggregation<AggregationSchema>;
+  aggs?: Aggregation<AggregationSchema> | EshopFacets;
   _source?: string[];
 }

@@ -2,28 +2,28 @@ import { AbstractBulder } from '../../Abstract/AbstractBuilder';
 import { NestedSchema } from './types';
 
 export class Nested extends AbstractBulder {
-  private readonly _query: NestedSchema;
+    private readonly _query: NestedSchema;
 
-  constructor(path: string) {
-    super();
-    this._query = {
-      path,
-    };
-  }
+    constructor(path: string) {
+        super();
+        this._query = {
+            path,
+        };
+    }
 
-  public addProp<K extends keyof Omit<NestedSchema, 'path'>>(prop: K, data: NestedSchema[K]) {
-    this._query[prop] = data;
+    public addProp<K extends keyof Omit<NestedSchema, 'path'>>(prop: K, data: NestedSchema[K]) {
+        this._query[prop] = data;
 
-    return this;
-  }
+        return this;
+    }
 
-  public isNotEmty(): boolean {
-    return Boolean(this._query?.path && this._query?.query);
-  }
+    public isNotEmty(): boolean {
+        return Boolean(this._query?.path && this._query?.query);
+    }
 
-  public build() {
-    return {
-      nested: this._query,
-    };
-  }
+    public build() {
+        return {
+            nested: this._query,
+        };
+    }
 }

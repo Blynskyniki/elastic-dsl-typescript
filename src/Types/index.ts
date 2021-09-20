@@ -9,10 +9,10 @@ export type BoolFields = 'must' | 'must_not' | 'should' | 'filter';
  * @interface
  */
 export interface Range {
-  gt?: number | Date;
-  gte?: number | Date;
-  lt?: number | Date;
-  lte?: number | Date;
+    gt?: number | Date;
+    gte?: number | Date;
+    lt?: number | Date;
+    lte?: number | Date;
 }
 
 /**
@@ -30,6 +30,6 @@ export type ScoreMode = 'avg' | 'max' | 'min' | 'none' | 'sum';
 export type RangeAggregation = Array<{ to: number } | { from: number }>;
 
 export interface PainLessScript {
-  source: string;
-  params: object;
+    source: string;
+    params: object;
 }

@@ -17,6 +17,7 @@ import {
   Transpositions,
   ZeroTermsQuery
 } from '../../Types/QueryOptions';
+import { TextSchema } from '../Text/types';
 
 /**
  * Base Boool builder filters shema
@@ -32,7 +33,7 @@ import {
  * @property wildcard returns documents that contain terms matching a wildcard pattern.
  * @interface BoolSchema
  */
-export interface BoolSchema extends Schema {
+export interface IBoolSchema extends Schema {
   range: {
     field: string;
     params: Range;
@@ -55,16 +56,16 @@ export interface BoolSchema extends Schema {
       query: string | number | boolean;
     };
     opts?:
-      | Analyzer
-      | AutoGenerateSynonymsPhraseQuery
-      | Fuzziness
-      | MaxExpansions
-      | PrefixLength
-      | FuzzyTranspositions
-      | Lenient
-      | Operator
-      | MinimumShouldMatch
-      | ZeroTermsQuery;
+        | Analyzer
+        | AutoGenerateSynonymsPhraseQuery
+        | Fuzziness
+        | MaxExpansions
+        | PrefixLength
+        | FuzzyTranspositions
+        | Lenient
+        | Operator
+        | MinimumShouldMatch
+        | ZeroTermsQuery;
   };
   term: {
     field: string;
@@ -131,12 +132,7 @@ export interface BoolSchema extends Schema {
     };
     opts?: Rewrite;
   };
-  wildcard: {
-    field: string;
-    params: {
-      value: string;
-    };
-    opts?: Rewrite | Boost;
-  };
 
 }
+
+export type  BoolSchema = IBoolSchema & TextSchema;

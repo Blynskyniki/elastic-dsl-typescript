@@ -12,12 +12,12 @@ import { ScoreMode } from '../../Types';
  * @interface Nested
  */
 export interface NestedSchema {
-  path: string;
-  query?: object;
-  score_mode?: ScoreMode;
-  inner_hits?: {
-    name: string;
-    size?: number;
-    _source?: string[];
-  };
+    path: string;
+    query?: object;
+    score_mode?: ScoreMode;
+    inner_hits?: {
+        name: string;
+        size?: number;
+        _source?: string[];
+    };
 }

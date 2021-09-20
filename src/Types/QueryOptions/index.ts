@@ -165,10 +165,18 @@ export interface Rewrite {
    * You can use this method to avoid exceeding the clause limit in the indices.query.bool.max_clause_count setting.
    */
   rewrite?:
-    | 'constant_score'
-    | 'constant_score_boolean'
-    | 'scoring_boolean'
-    | 'top_terms_blended_freqs_N'
-    | 'top_terms_boost_N'
-    | 'top_terms_N';
+      | 'constant_score'
+      | 'constant_score_boolean'
+      | 'scoring_boolean'
+      | 'top_terms_blended_freqs_N'
+      | 'top_terms_boost_N'
+      | 'top_terms_N';
+}
+
+
+export interface CaseInsensitive {
+  /**
+   * Allows case insensitive matching of the pattern with the indexed field values when set to true. Default is false which means the case sensitivity of matching depends on the underlying field’s mapping.
+   */
+  case_insensitive?: boolean;
 }

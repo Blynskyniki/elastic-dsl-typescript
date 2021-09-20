@@ -5,6 +5,7 @@ import {
   AnalyzeWildcard,
   AutoGenerateSynonymsPhraseQuery,
   Boost,
+  CaseInsensitive,
   DefaultField,
   Fuzziness,
   FuzzyPrefixLength,
@@ -14,6 +15,7 @@ import {
   MinimumShouldMatch,
   Operator,
   PrefixLength,
+  Rewrite,
   ZeroTermsQuery
 } from '../../Types/QueryOptions';
 
@@ -39,15 +41,15 @@ export interface TextSchema extends Schema {
     };
 
     opts?: Fuzziness &
-      MaxExpansions &
-      PrefixLength &
-      MinimumShouldMatch &
-      FuzzyTranspositions &
-      Lenient &
-      Operator &
-      Analyzer &
-      ZeroTermsQuery &
-      AutoGenerateSynonymsPhraseQuery;
+        MaxExpansions &
+        PrefixLength &
+        MinimumShouldMatch &
+        FuzzyTranspositions &
+        Lenient &
+        Operator &
+        Analyzer &
+        ZeroTermsQuery &
+        AutoGenerateSynonymsPhraseQuery;
   };
   match_phrase: {
     field: string;
@@ -62,17 +64,17 @@ export interface TextSchema extends Schema {
       query: string;
     };
     opts?: AllowLeadingWildcard &
-      AutoGenerateSynonymsPhraseQuery &
-      Boost &
-      Operator &
-      Analyzer &
-      DefaultField &
-      FuzzyTranspositions &
-      FuzzyPrefixLength &
-      FuzzyTranspositions &
-      FuzzyPrefixLength &
-      Lenient &
-      AnalyzeWildcard;
+        AutoGenerateSynonymsPhraseQuery &
+        Boost &
+        Operator &
+        Analyzer &
+        DefaultField &
+        FuzzyTranspositions &
+        FuzzyPrefixLength &
+        FuzzyTranspositions &
+        FuzzyPrefixLength &
+        Lenient &
+        AnalyzeWildcard;
   };
   combined_fields: {
     params: {
@@ -80,5 +82,12 @@ export interface TextSchema extends Schema {
       fields: string[];
     };
     opts?: Operator & AutoGenerateSynonymsPhraseQuery & MinimumShouldMatch & ZeroTermsQuery;
+  };
+  wildcard: {
+    params: {
+      query: string;
+      fields: string;
+    };
+    opts?: Boost & Rewrite & CaseInsensitive;
   };
 }
