@@ -3,14 +3,14 @@ import {Bool} from '../Bool';
 import {AbstractBulder} from '../../Abstract/AbstractBuilder';
 
 interface IFacet {
-  [key: string]: object;
+  [key: string]: any;
 
   inactive: InactiveFacet;
 }
 
 type FacetType = keyof IFacet;
 
-type InactiveFacet = Record<'filter' | 'aggs', object>;
+type InactiveFacet = Record<'filter' | 'aggs', any>;
 
 export class EshopFacets extends AbstractBulder {
   private _facets: IFacet = {

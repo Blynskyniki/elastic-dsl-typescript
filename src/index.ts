@@ -21,3 +21,8 @@ export * from './Builders/Text/index';
 export * from './Builders/Text/types';
 // Eshop facets
 export * from './Builders/EshopFacets';
+
+
+export * from './Types/index';
+export * from './Types/QueryOptions';
+

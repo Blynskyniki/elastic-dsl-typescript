@@ -1,13 +1,13 @@
 {
   "name": "elastic-dsl-typescript",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "description": "Node.js ElasticSearch search query builder",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prepublish": " npm run build && npm version patch -m \"Upgrade to %s \"",
     "test": "./node_modules/.bin/jest -i --coverage --forceExit",
-    "build": "rm -rf ./dist && ./node_modules/.bin/tsc",
+    "build": "rm -rf ./dist && ./node_modules/.bin/tsc"
   },
   "repository": {
     "type": "git",

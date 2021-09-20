@@ -6,7 +6,8 @@
 - script_fields
 - bool
 - query
-- aggregations (in progress...)
+- aggregations
+- aggregations (ACTIVE\PASSIVE facet patern)
 
 **Generating hints based on types :**
 ![type](./img/type.png)
