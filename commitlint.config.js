@@ -7,7 +7,6 @@ module.exports = {
       'always',
       ['docs', 'style', 'ci', 'debug', 'refactor', 'perf', 'fix', 'test', 'chore', 'build', 'revert', 'feat'],
     ],
-    // tslint:disable-next-line:object-literal-sort-keys
     'type-case': [1, 'always', 'lower-case'],
     'type-empty': [1, 'never'],
     'subject-case': [0, 'always', 'lower-case'],
