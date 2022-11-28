@@ -156,7 +156,7 @@ describe('Check aggs builder', () => {
         const a = new Aggregation().add('terms', 'availStoreSizes', {
             params: {
                 field: 'availSizes.sizes.keyword',
-                filter: {terms: {'availSizes.IStoreId.keyword': ['0000']}}
+                filter: { terms: { 'availSizes.IStoreId.keyword': ['0000'] } }
             },
             opts: {
                 size: 50
@@ -169,8 +169,8 @@ describe('Check aggs builder', () => {
 
         expect(a.build()).toEqual({
             availStoreSizes: {
-                aggs: {availStoreSizes_filtered: {terms: {field: 'availSizes.sizes.keyword', size: 50}}},
-                filter: {terms: {'availSizes.IStoreId.keyword': ['0000']}}
+                aggs: { availStoreSizes_filtered: { terms: { field: 'availSizes.sizes.keyword', size: 50 } } },
+                filter: { terms: { 'availSizes.IStoreId.keyword': ['0000'] } }
             }
         });
     });

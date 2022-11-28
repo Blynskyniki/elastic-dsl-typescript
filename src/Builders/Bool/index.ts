@@ -60,26 +60,26 @@ export class Bool<BASE_SCHEMA extends BoolSchema = BoolSchema> extends AbstractB
         switch (filter) {
             case 'exists': {
                 this._query[type]?.push({
-                    [filter]: {field: (data.params as BASE_SCHEMA['exists']['params']).fieldName},
+                    [filter]: { field: (data.params as BASE_SCHEMA['exists']['params']).fieldName },
                 });
                 break;
             }
             case 'term':
             case 'terms': {
                 this._query[type]?.push({
-                    [filter]: {[data['field']!]: (data.params as any)['value'], ...(data.opts as object)},
+                    [filter]: { [data['field']!]: (data.params as any)['value'], ...(data.opts as object) },
                 });
                 break;
             }
 
             default: {
-                let payload = {...(data.params as object)};
+                let payload = { ...(data.params as object) };
                 if (data?.opts) {
-                    payload = {...payload, ...(data.opts as object)};
+                    payload = { ...payload, ...(data.opts as object) };
                 }
 
                 this._query[type]?.push({
-                    [filter]: {[data['field']!]: payload},
+                    [filter]: { [data['field']!]: payload },
                 });
             }
         }
@@ -99,7 +99,7 @@ export class Bool<BASE_SCHEMA extends BoolSchema = BoolSchema> extends AbstractB
                 bool[field] = this._query[field];
             }
         }
-        return {bool};
+        return { bool };
     }
 
     private checkField(type: BoolFields) {

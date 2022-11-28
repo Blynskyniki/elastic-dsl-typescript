@@ -22,12 +22,12 @@ export class TEXT<BASE_SCHEMA extends TextSchema> extends AbstractBulder {
         if (data.field) {
             this._query = {
                 [filter]: {
-                    [data.field]: {...(data.params as object), ...(data.opts as object)}
+                    [data.field]: { ...(data.params as object), ...(data.opts as object) }
                 }
             };
         } else {
             this._query = {
-                [filter]: {...(data.params as object), ...(data.opts as object)}
+                [filter]: { ...(data.params as object), ...(data.opts as object) }
             };
         }
 

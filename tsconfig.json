@@ -4,10 +4,8 @@
     "sourceMap": false,
     "strictNullChecks": true,
     "module": "commonjs",
-    "lib": [
-      "es2019"
-    ],
-    "target": "es2017",
+    "lib": ["es2019"],
+    "target": "ES6",
     "allowJs": false,
     "strict": true,
     "declaration": true,

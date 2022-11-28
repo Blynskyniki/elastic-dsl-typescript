@@ -16,7 +16,7 @@ import {
   Operator,
   PrefixLength,
   Rewrite,
-  ZeroTermsQuery
+  ZeroTermsQuery,
 } from '../../Types/QueryOptions';
 
 /**
@@ -30,7 +30,7 @@ import {
  */
 export interface TextSchema extends Schema {
   match_all: {
-    params: {};
+    params: Record<string, unknown>;
 
     opts?: Boost;
   };
@@ -41,15 +41,15 @@ export interface TextSchema extends Schema {
     };
 
     opts?: Fuzziness &
-        MaxExpansions &
-        PrefixLength &
-        MinimumShouldMatch &
-        FuzzyTranspositions &
-        Lenient &
-        Operator &
-        Analyzer &
-        ZeroTermsQuery &
-        AutoGenerateSynonymsPhraseQuery;
+      MaxExpansions &
+      PrefixLength &
+      MinimumShouldMatch &
+      FuzzyTranspositions &
+      Lenient &
+      Operator &
+      Analyzer &
+      ZeroTermsQuery &
+      AutoGenerateSynonymsPhraseQuery;
   };
   match_phrase: {
     field: string;
@@ -64,17 +64,17 @@ export interface TextSchema extends Schema {
       query: string;
     };
     opts?: AllowLeadingWildcard &
-        AutoGenerateSynonymsPhraseQuery &
-        Boost &
-        Operator &
-        Analyzer &
-        DefaultField &
-        FuzzyTranspositions &
-        FuzzyPrefixLength &
-        FuzzyTranspositions &
-        FuzzyPrefixLength &
-        Lenient &
-        AnalyzeWildcard;
+      AutoGenerateSynonymsPhraseQuery &
+      Boost &
+      Operator &
+      Analyzer &
+      DefaultField &
+      FuzzyTranspositions &
+      FuzzyPrefixLength &
+      FuzzyTranspositions &
+      FuzzyPrefixLength &
+      Lenient &
+      AnalyzeWildcard;
   };
   combined_fields: {
     params: {

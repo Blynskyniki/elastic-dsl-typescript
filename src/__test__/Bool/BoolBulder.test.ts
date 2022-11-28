@@ -8,7 +8,7 @@ describe('BoolBulder tests', () => {
             'term',
 
             {
-                params: {value: '00001851'},
+                params: { value: '00001851' },
                 opts: {
                     boost: 1.0,
                 },
@@ -19,7 +19,7 @@ describe('BoolBulder tests', () => {
 
         expect(b.build()).toHaveProperty(
             'bool',
-            expect.objectContaining({'must': [{'term': {'articul': '00001851', 'boost': 1}}]})
+            expect.objectContaining({ 'must': [{ 'term': { 'articul': '00001851', 'boost': 1 } }] })
         );
     });
     test('Create range query', async () => {
@@ -34,14 +34,14 @@ describe('BoolBulder tests', () => {
                     relation: 'CONTAINS',
                     time_zone: 'utc+1',
                 },
-                params: {gt: 0, lte: 100500},
+                params: { gt: 0, lte: 100500 },
             },
         );
 
         expect(b.build()).toHaveProperty(
             'bool',
             expect.objectContaining({
-                filter: [{range: {price: {boost: 1, gt: 0, lte: 100500, relation: 'CONTAINS', time_zone: 'utc+1'}}}],
+                filter: [{ range: { price: { boost: 1, gt: 0, lte: 100500, relation: 'CONTAINS', time_zone: 'utc+1' } } }],
             }),
         );
     });
@@ -52,7 +52,7 @@ describe('BoolBulder tests', () => {
             },
         });
 
-        expect(b.build()).toHaveProperty('bool', expect.objectContaining({filter: [{exists: {field: 'price'}}]}));
+        expect(b.build()).toHaveProperty('bool', expect.objectContaining({ filter: [{ exists: { field: 'price' } }] }));
     });
     test('Create terms query', async () => {
         const b = new Bool().add('filter', 'terms', {
@@ -67,7 +67,7 @@ describe('BoolBulder tests', () => {
 
         expect(b.build()).toHaveProperty(
             'bool',
-            expect.objectContaining({filter: [{terms: {articul: ['00001851'], boost: 2}}]})
+            expect.objectContaining({ filter: [{ terms: { articul: ['00001851'], boost: 2 } }] })
         );
     });
 

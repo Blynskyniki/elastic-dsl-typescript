@@ -1,0 +1,14 @@
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: npx eslint -c ./.eslintrc.js --fix {staged_files}
+    types:
+      glob: "*.{ts, tsx}"
+      run: npm run build
+commit-msg:
+  parallel: true
+  commands:
+    commitlint:
+      run: npx commitlint --edit

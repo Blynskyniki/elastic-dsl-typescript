@@ -13,7 +13,7 @@ describe('ScriptFields tests', () => {
         expect(s).toHaveProperty(
             'script_fields',
             expect.objectContaining({
-                myScriptField: {script: {params: {factor: 2}, source: 'doc[\'price\'].value * params.factor'}},
+                myScriptField: { script: { params: { factor: 2 }, source: 'doc[\'price\'].value * params.factor' } },
             }),
         );
     });

@@ -16,9 +16,9 @@ describe('Nested tests', () => {
         expect(n.build()).toHaveProperty(
             'nested',
             expect.objectContaining({
-                inner_hits: {_source: ['mySourceFiled'], name: 'nestedData', size: 100500},
+                inner_hits: { _source: ['mySourceFiled'], name: 'nestedData', size: 100500 },
                 path: 'myNestedField',
-                query: {matchAll: {}},
+                query: { matchAll: {} },
                 score_mode: 'avg'
             }),
         );

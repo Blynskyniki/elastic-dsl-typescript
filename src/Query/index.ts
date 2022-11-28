@@ -59,7 +59,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @returns {{}}
    */
   public build(opts: Partial<{ withoutAggs: boolean }> = {}): object {
-    const {withoutAggs} = opts;
+    const { withoutAggs } = opts;
     const obj: any = {};
     for (const [prop, val] of Object.entries(this._props)) {
       switch (prop) {
@@ -81,7 +81,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
     let query: any = {};
     for (const [prop, val] of Object.entries(this._query)) {
       if (val instanceof AbstractBulder) {
-        query = {...query, ...(val as AbstractBulder).build()};
+        query = { ...query, ...(val as AbstractBulder).build() };
         continue;
       }
       query[prop] = val;
@@ -94,7 +94,7 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
   }
 
   public isNotEmty(): boolean {
-    return Object.values({...(this._query as object), ...(this._query as object)}).flat().length > 0;
+    return (Object.values({ ...(this._query as object), ...(this._query as object) }) as any[]).flat().length > 0;
   }
 
   private isNotExistInQuery(prop: keyof RawQuery['query']) {

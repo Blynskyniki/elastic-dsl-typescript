@@ -74,7 +74,7 @@ describe('ScriptFields tests', () => {
                 }
             })
         );
-        const {post_filter, ...data} = q.build() as any;
+        const { post_filter, ...data } = q.build() as any;
         expect(data).toEqual({
             _source: ['field'],
             explain: true,

@@ -5,7 +5,7 @@ export class Aggregation<SCHEMA extends AggregationSchema> extends AbstractBulde
     private _data: any = {};
 
     public add<Type extends keyof SCHEMA>(aggType: Type, name: string, d: SCHEMA[Type]) {
-        const {filter, subAgg, ...all} = d.params as { filter?: any; subAgg?: any };
+        const { filter, subAgg, ...all } = d.params as { filter?: any; subAgg?: any };
         let sub = {};
         if (subAgg) {
             sub = {
@@ -19,7 +19,7 @@ export class Aggregation<SCHEMA extends AggregationSchema> extends AbstractBulde
                 filter,
                 aggs: {
                     [`${name}_filtered`]: {
-                        [aggType]: {...all, ...((d.opts as object) || {})},
+                        [aggType]: { ...all, ...((d.opts as object) || {}) },
                         ...sub,
                     },
                 },
@@ -28,7 +28,7 @@ export class Aggregation<SCHEMA extends AggregationSchema> extends AbstractBulde
         }
 
         this._data[name] = {
-            [aggType]: {...all, ...((d.opts as object) || {})},
+            [aggType]: { ...all, ...((d.opts as object) || {}) },
             ...sub,
         };
         return this;

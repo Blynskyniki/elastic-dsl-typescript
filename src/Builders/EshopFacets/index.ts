@@ -1,6 +1,6 @@
-import {AggregationSchema} from '../Aggregation/types';
-import {Bool} from '../Bool';
-import {AbstractBulder} from '../../Abstract/AbstractBuilder';
+import { AggregationSchema } from '../Aggregation/types';
+import { Bool } from '../Bool';
+import { AbstractBulder } from '../../Abstract/AbstractBuilder';
 
 interface IFacet {
   [key: string]: any;
@@ -30,7 +30,7 @@ export class EshopFacets extends AbstractBulder {
       name: string,
       d: AggregationSchema[Type],
   ) {
-    const {filter, subAgg, ...all} = d.params as { filter?: object; subAgg?: object };
+    const { filter, subAgg, ...all } = d.params as { filter?: object; subAgg?: object };
     let sub = {};
     let data = {};
     if (subAgg) {
@@ -45,14 +45,14 @@ export class EshopFacets extends AbstractBulder {
         filter,
         aggs: {
           [`${name}_filtered`]: {
-            [aggType]: {...all, ...((d.opts as object) || {})},
+            [aggType]: { ...all, ...((d.opts as object) || {}) },
             ...sub,
           },
         },
       };
     } else {
       data = {
-        [aggType]: {...all, ...((d.opts as object) || {})},
+        [aggType]: { ...all, ...((d.opts as object) || {}) },
         ...sub,
       };
     }
@@ -73,6 +73,6 @@ export class EshopFacets extends AbstractBulder {
   }
 
   public isNotEmty(): boolean {
-    return Object.keys({...this._facets, ...this._facets.inactive.aggs}).length > 1;
+    return Object.keys({ ...this._facets, ...this._facets.inactive.aggs }).length > 1;
   }
 }
