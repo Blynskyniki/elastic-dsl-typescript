@@ -1,18 +1,27 @@
 name: Publish Package to npmjs
 on:
-  release:
-    types: [ published ]
+  push:
+    branches: [ master, alpha ]
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x, 18.x ]
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run build
+      - run: npx semantic-release
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
