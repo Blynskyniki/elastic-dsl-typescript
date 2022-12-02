@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [  18.x ]
+        node-version: [ 18.x ]
 
     steps:
       - uses: actions/checkout@v3
@@ -22,6 +22,6 @@ jobs:
       - run: npm i
       - run: npm run build
       - run: npx semantic-release
-      - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
