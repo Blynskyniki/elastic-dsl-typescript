@@ -1,7 +1,7 @@
 name: Publish Package to npmjs
 on:
   push:
-    branches: [ master, alpha ]
+    branches: [ main ]
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
