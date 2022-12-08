@@ -22,7 +22,7 @@ export interface DefaultOperator {
    * For example, a query string of capital of Hungary is interpreted as capital
    * AND of AND Hungary.
    */
-  operator?: 'OR' | 'AND';
+  default_operator?: 'OR' | 'AND';
 }
 
 export interface Analyzer {
