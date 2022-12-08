@@ -12,6 +12,19 @@ export interface Operator {
   operator?: 'OR' | 'AND';
 }
 
+export interface DefaultOperator {
+  /**
+   * Default boolean logic used to interpret text in the query string if no operators are specified. Valid values are:
+   * OR (Default)
+   * For example, a query string of capital of Hungary is interpreted as capital
+   * OR of OR Hungary.
+   * AND
+   * For example, a query string of capital of Hungary is interpreted as capital
+   * AND of AND Hungary.
+   */
+  operator?: 'OR' | 'AND';
+}
+
 export interface Analyzer {
   /**
    * Analyzer used to convert the text in the query value into tokens. Defaults to the index-time analyzer mapped for the <field>. If no analyzer is mapped, the index’s default analyzer is used.

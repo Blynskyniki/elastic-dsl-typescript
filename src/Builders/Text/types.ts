@@ -7,6 +7,7 @@ import {
   Boost,
   CaseInsensitive,
   DefaultField,
+  DefaultOperator,
   Fields,
   Fuzziness,
   FuzzyPrefixLength,
@@ -82,7 +83,7 @@ export interface TextSchema extends Schema {
       AutoGenerateSynonymsPhraseQuery &
       Boost &
       Fields &
-      Operator &
+      DefaultOperator &
       Analyzer &
       DefaultField &
       MinimumShouldMatch &
@@ -98,11 +99,10 @@ export interface TextSchema extends Schema {
     opts?: AllowLeadingWildcard &
       AutoGenerateSynonymsPhraseQuery &
       Boost &
-      Operator &
+      Fields &
+      DefaultOperator &
       Analyzer &
       DefaultField &
-      FuzzyTranspositions &
-      FuzzyPrefixLength &
       FuzzyTranspositions &
       FuzzyPrefixLength &
       Lenient &
