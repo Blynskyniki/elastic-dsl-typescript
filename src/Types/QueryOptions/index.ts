@@ -165,18 +165,26 @@ export interface Rewrite {
    * You can use this method to avoid exceeding the clause limit in the indices.query.bool.max_clause_count setting.
    */
   rewrite?:
-      | 'constant_score'
-      | 'constant_score_boolean'
-      | 'scoring_boolean'
-      | 'top_terms_blended_freqs_N'
-      | 'top_terms_boost_N'
-      | 'top_terms_N';
+    | 'constant_score'
+    | 'constant_score_boolean'
+    | 'scoring_boolean'
+    | 'top_terms_blended_freqs_N'
+    | 'top_terms_boost_N'
+    | 'top_terms_N';
 }
-
 
 export interface CaseInsensitive {
   /**
    * Allows case insensitive matching of the pattern with the indexed field values when set to true. Default is false which means the case sensitivity of matching depends on the underlying field’s mapping.
    */
   case_insensitive?: boolean;
+}
+
+export interface Fields {
+  /**
+   * (Optional, array of strings) Array of fields you wish to search.
+   * This field accepts wildcard expressions. You also can boost relevance scores for matches to particular fields using a caret (^) notation. See Wildcards and per-field boosts in the fields parameter for examples.
+   * Defaults to the index.query.default_field index setting, which has a default value of *. The * value extracts all fields that are eligible to term queries and filters the metadata fields. All extracted fields are then combined to build a query if no prefix is specified.
+   */
+  fields?: string[];
 }

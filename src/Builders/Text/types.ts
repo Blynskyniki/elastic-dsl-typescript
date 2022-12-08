@@ -7,6 +7,7 @@ import {
   Boost,
   CaseInsensitive,
   DefaultField,
+  Fields,
   Fuzziness,
   FuzzyPrefixLength,
   FuzzyTranspositions,
@@ -41,6 +42,7 @@ export interface TextSchema extends Schema {
     };
 
     opts?: Fuzziness &
+      Boost &
       MaxExpansions &
       PrefixLength &
       MinimumShouldMatch &
@@ -57,7 +59,37 @@ export interface TextSchema extends Schema {
     params: {
       query: string;
     };
-    opts?: ZeroTermsQuery | Analyzer;
+    opts?: ZeroTermsQuery | (Analyzer & Boost);
+  };
+  /**
+   * The simple_query_string query supports the following operators:
+   *
+   * + signifies AND operation
+   * | signifies OR operation
+   * - negates a single token
+   * " wraps a number of tokens to signify a phrase for searching
+   * * at the end of a term signifies a prefix query
+   * ( and ) signify precedence
+   * ~N after a word signifies edit distance (fuzziness)
+   * ~N after a phrase signifies slop amount
+   * To use one of these characters literally, escape it with a preceding backslash (\).
+   */
+  simple_query_string: {
+    params: {
+      query: string;
+    };
+    opts?: AllowLeadingWildcard &
+      AutoGenerateSynonymsPhraseQuery &
+      Boost &
+      Fields &
+      Operator &
+      Analyzer &
+      DefaultField &
+      MinimumShouldMatch &
+      AnalyzeWildcard &
+      FuzzyTranspositions &
+      FuzzyPrefixLength &
+      Lenient;
   };
   query_string: {
     params: {
@@ -81,7 +113,7 @@ export interface TextSchema extends Schema {
       query: string;
       fields: string[];
     };
-    opts?: Operator & AutoGenerateSynonymsPhraseQuery & MinimumShouldMatch & ZeroTermsQuery;
+    opts?: Operator & AutoGenerateSynonymsPhraseQuery & MinimumShouldMatch & ZeroTermsQuery & Boost;
   };
   wildcard: {
     params: {
