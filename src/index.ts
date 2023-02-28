@@ -21,8 +21,9 @@ export * from './Builders/Text/index';
 export * from './Builders/Text/types';
 // Eshop facets
 export * from './Builders/EshopFacets';
-
+// FunctionScore
+export * from './Builders/FunctionScore/index';
+export * from './Builders/FunctionScore/types';
 
 export * from './Types/index';
 export * from './Types/QueryOptions';
-

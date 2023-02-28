@@ -1,3 +1,4 @@
+import { FunctionScore } from 'Builders/FunctionScore';
 import { AggregationSchema, EshopFacets } from '..';
 import { Aggregation } from '../Builders/Aggregation';
 import { Bool } from '../Builders/Bool';
@@ -27,6 +28,7 @@ export interface RawQuery {
   query: {
     match?: Record<'message', Record<'query', string>>;
     bool?: Bool<BoolSchema>;
+    function_score?: FunctionScore;
     match_all?: {
       boost: number;
     };
@@ -36,6 +38,7 @@ export interface RawQuery {
       value: string;
       boost?: number;
     };
+    [key: string]: any;
   };
   /**
    * Post aggregations filters

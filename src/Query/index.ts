@@ -1,6 +1,7 @@
 import { AbstractBulder } from '../Abstract/AbstractBuilder';
 import { Bool } from '../Builders/Bool';
 import { BoolSchema } from '../Builders/Bool/types';
+import { FunctionScore } from '../Builders/FunctionScore';
 import { RawQuery } from './types';
 
 /**
@@ -45,7 +46,21 @@ export class Query<BOOL_SCHEMA extends BoolSchema> extends AbstractBulder {
    * @returns {this<BOOL_SCHEMA>}
    */
   public addQuery<K extends keyof RawQuery['query']>(type: K, val: RawQuery['query'][K]) {
-    this._query[type] = val;
+    switch (type) {
+      case 'function_score': {
+        this._query = { ...this._query, ...(val as FunctionScore).build() };
+        break;
+      }
+      case 'match_all': {
+        this._query[type] = {};
+        break;
+      }
+      default: {
+        this._query[type] = val;
+        break;
+      }
+    }
+
     return this;
   }
 
