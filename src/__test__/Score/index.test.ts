@@ -79,4 +79,76 @@ describe('Score tests', () => {
       },
     });
   });
+  test('Create script score ', async () => {
+    const s = new FunctionScore()
+      .add('script_score', {
+        script: {
+          source: 'test painless script',
+        },
+      })
+      .add(
+        'query',
+        new Bool<BoolSchema>().Must('match_all', {
+          params: {},
+        }),
+      );
+
+    expect(s.build()).toEqual({
+      function_score: {
+        query: {
+          bool: {
+            must: [
+              {
+                match_all: {},
+              },
+            ],
+          },
+        },
+        script_score: {
+          script: {
+            source: 'test painless script',
+          },
+        },
+      },
+    });
+  });
+  test('Create gaus score ', async () => {
+    const s = new FunctionScore()
+      .add('gauss', {
+        testField: {
+          decay: '1d',
+          offset: '1',
+          origin: '2',
+          scale: '2',
+        },
+      })
+      .add(
+        'query',
+        new Bool<BoolSchema>().Must('match_all', {
+          params: {},
+        }),
+      );
+
+    expect(s.build()).toEqual({
+      function_score: {
+        gauss: {
+          testField: {
+            decay: '1d',
+            offset: '1',
+            origin: '2',
+            scale: '2',
+          },
+        },
+        query: {
+          bool: {
+            must: [
+              {
+                match_all: {},
+              },
+            ],
+          },
+        },
+      },
+    });
+  });
 });
