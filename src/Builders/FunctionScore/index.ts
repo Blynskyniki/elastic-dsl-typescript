@@ -1,6 +1,8 @@
 import { AbstractBulder } from '../../Abstract/AbstractBuilder';
-import { Bool } from '../../Builders/Bool';
+import { Bool } from '../Bool';
 import { IFunctionScoreSchema } from './types';
+
+export * from './types';
 
 export class FunctionScore<BASE_SCHEMA extends IFunctionScoreSchema = IFunctionScoreSchema> extends AbstractBulder {
   private _query: any = {};

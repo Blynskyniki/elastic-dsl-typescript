@@ -9,7 +9,7 @@
     "allowJs": false,
     "strict": true,
     "declaration": true,
-    "baseUrl": "./src",
+
     "experimentalDecorators": true,
     "esModuleInterop": true
   },

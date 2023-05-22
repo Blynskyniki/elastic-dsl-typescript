@@ -2,6 +2,7 @@ import { AbstractBulder } from '../../Abstract/AbstractBuilder';
 import { BoolFields } from '../../Types';
 import { BoolSchema } from './types';
 
+export * from './types';
 type BoolQueryData = Partial<Record<BoolFields, object[]>>;
 
 export class Bool<BASE_SCHEMA extends BoolSchema = BoolSchema> extends AbstractBulder {

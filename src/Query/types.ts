@@ -1,8 +1,8 @@
-import { FunctionScore } from 'Builders/FunctionScore';
 import { AggregationSchema, EshopFacets } from '..';
 import { Aggregation } from '../Builders/Aggregation';
 import { Bool } from '../Builders/Bool';
 import { BoolSchema } from '../Builders/Bool/types';
+import { FunctionScore } from '../Builders/FunctionScore';
 import { Range, Sort } from '../Types';
 
 /**

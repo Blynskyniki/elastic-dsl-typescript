@@ -1,6 +1,5 @@
-import { Bool } from 'Builders/Bool';
-import { BoolSchema } from 'Builders/Bool/types';
-import { Range } from 'Types';
+import { Range } from '../../Types';
+import { Bool, BoolSchema } from '../Bool';
 
 export interface IScoreFunction {
   filter: Record<'string', any>;

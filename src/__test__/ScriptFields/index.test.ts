@@ -1,4 +1,4 @@
-import { ScriptFields } from '../../Builders/ScriptFields';
+import { ScriptFields } from '../../';
 
 describe('ScriptFields tests', () => {
   test('Create script field ', async () => {
