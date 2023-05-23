@@ -1,5 +1,7 @@
-import { AbstractBulder } from '../..';
+import { AbstractBulder } from '../../Abstract/AbstractBuilder';
 import { TextSchema } from './types';
+
+export * from './types';
 
 export class TEXT<BASE_SCHEMA extends TextSchema> extends AbstractBulder {
   private _query: object = {};

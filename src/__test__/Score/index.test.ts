@@ -1,7 +1,4 @@
-import { Bool } from '../../Builders/Bool';
-import { BoolSchema } from '../../Builders/Bool/types';
-import { FunctionScore } from '../../Builders/FunctionScore';
-import { Query } from '../../Query';
+import { Bool, BoolSchema, FunctionScore, Query } from '../../';
 
 describe('Score tests', () => {
   test('Create score ', async () => {

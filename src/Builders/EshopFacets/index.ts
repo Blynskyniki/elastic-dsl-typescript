@@ -1,6 +1,6 @@
-import { AggregationSchema } from '../Aggregation/types';
-import { Bool } from '../Bool';
 import { AbstractBulder } from '../../Abstract/AbstractBuilder';
+import { AggregationSchema } from '../Aggregation';
+import { Bool } from '../Bool';
 
 interface IFacet {
   [key: string]: any;
@@ -25,10 +25,10 @@ export class EshopFacets extends AbstractBulder {
   }
 
   public add<Type extends keyof AggregationSchema>(
-      facetType: FacetType,
-      aggType: Type,
-      name: string,
-      d: AggregationSchema[Type],
+    facetType: FacetType,
+    aggType: Type,
+    name: string,
+    d: AggregationSchema[Type],
   ) {
     const { filter, subAgg, ...all } = d.params as { filter?: object; subAgg?: object };
     let sub = {};

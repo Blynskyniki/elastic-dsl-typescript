@@ -15,7 +15,7 @@ import {
   Rewrite,
   TimeZone,
   Transpositions,
-  ZeroTermsQuery
+  ZeroTermsQuery,
 } from '../../Types/QueryOptions';
 import { TextSchema } from '../Text/types';
 
@@ -56,16 +56,16 @@ export interface IBoolSchema extends Schema {
       query: string | number | boolean;
     };
     opts?:
-        | Analyzer
-        | AutoGenerateSynonymsPhraseQuery
-        | Fuzziness
-        | MaxExpansions
-        | PrefixLength
-        | FuzzyTranspositions
-        | Lenient
-        | Operator
-        | MinimumShouldMatch
-        | ZeroTermsQuery;
+      | Analyzer
+      | AutoGenerateSynonymsPhraseQuery
+      | Fuzziness
+      | MaxExpansions
+      | PrefixLength
+      | FuzzyTranspositions
+      | Lenient
+      | Operator
+      | MinimumShouldMatch
+      | ZeroTermsQuery;
   };
   term: {
     field: string;
@@ -132,7 +132,6 @@ export interface IBoolSchema extends Schema {
     };
     opts?: Rewrite;
   };
-
 }
 
-export type  BoolSchema = IBoolSchema & TextSchema;
+export type BoolSchema = IBoolSchema & TextSchema;

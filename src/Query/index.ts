@@ -1,8 +1,8 @@
 import { AbstractBulder } from '../Abstract/AbstractBuilder';
-import { Bool } from '../Builders/Bool';
-import { BoolSchema } from '../Builders/Bool/types';
-import { FunctionScore } from '../Builders/FunctionScore';
+import { Bool, BoolSchema, FunctionScore } from '../Builders';
 import { RawQuery } from './types';
+
+export * from './types';
 
 /**
  * @Class Query
