@@ -29,9 +29,7 @@ describe('Score tests', () => {
           bool: {
             must: [
               {
-                match_all: {
-                  undefined: {},
-                },
+                match_all: {},
               },
             ],
           },

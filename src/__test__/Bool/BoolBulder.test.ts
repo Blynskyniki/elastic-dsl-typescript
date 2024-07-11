@@ -20,6 +20,36 @@ describe('BoolBulder tests', () => {
       expect.objectContaining({ must: [{ term: { articul: '00001851', boost: 1 } }] }),
     );
   });
+  test('Create term query', async () => {
+    const b = new Bool().add(
+      'must',
+      'prefix',
+
+      {
+        params: { value: '00001851' },
+        opts: {
+          boost: 1.0,
+        },
+        field: 'articul',
+      },
+    );
+
+    expect(b.build()).toHaveProperty(
+      'bool',
+      expect.objectContaining({
+        must: [
+          {
+            prefix: {
+              articul: {
+                boost: 1,
+                value: '00001851',
+              },
+            },
+          },
+        ],
+      }),
+    );
+  });
   test('Create range query', async () => {
     const b = new Bool().add(
       'filter',
