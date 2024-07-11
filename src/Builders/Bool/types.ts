@@ -2,6 +2,7 @@ import { Schema } from '../../Abstract/Schema';
 import { Range } from '../../Types';
 import {
   Analyzer,
+  AnyOption,
   AutoGenerateSynonymsPhraseQuery,
   Boost,
   Fuzziness,
@@ -17,7 +18,7 @@ import {
   Transpositions,
   ZeroTermsQuery,
 } from '../../Types/QueryOptions';
-import { TextSchema } from '../Text/types';
+import { TextSchema } from '../Text';
 
 /**
  * Base Boool builder filters shema
@@ -99,7 +100,7 @@ export interface IBoolSchema extends Schema {
     params: {
       value: string;
     };
-    opts?: Rewrite;
+    opts?: Rewrite & Boost & AnyOption;
   };
   regexp: {
     field: string;
@@ -130,7 +131,7 @@ export interface IBoolSchema extends Schema {
        */
       flags: 'ALL' | 'COMPLEMENT' | 'INTERSECTION' | 'ANYSTRING';
     };
-    opts?: Rewrite;
+    opts?: Rewrite & Boost & AnyOption;
   };
 }
 

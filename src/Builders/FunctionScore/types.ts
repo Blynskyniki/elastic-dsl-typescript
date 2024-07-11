@@ -51,9 +51,3 @@ type DecayFn = {
     decay: string;
   }>;
 };
-
-// "script_score": {
-//   "script": {
-//     "source": "if(doc['quantity'].value > 0){return 1;}else{return 0;}"
-//   }
-// },

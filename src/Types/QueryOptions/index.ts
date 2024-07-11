@@ -201,3 +201,7 @@ export interface Fields {
    */
   fields?: string[];
 }
+
+export interface AnyOption {
+  [key: string]: string | number;
+}
