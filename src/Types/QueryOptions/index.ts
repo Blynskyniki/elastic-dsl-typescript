@@ -203,5 +203,5 @@ export interface Fields {
 }
 
 export interface AnyOption {
-  [key: string]: string | number;
+  [key: string]: string | number | boolean;
 }
